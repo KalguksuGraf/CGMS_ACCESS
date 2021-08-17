@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Page Title</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="../../css/jquery/jquery.mobile-1.4.5.min.css" />	
+	<link rel="stylesheet" href="../../css/app/common.css" /><!--공통-->
+	<link rel="stylesheet" href="../../../css/app/style.css" /><!--서브화면-->
+	
+	<script type="text/javascript" charset="utf-8" src="../../js/jquery/jquery.js"></script>
+	
+    <script type="text/javascript" charset="utf-8" src="../../js/jquery/jquery.mobile-1.4.5.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../js/common/common.js"></script>
+    
+</head>
+<body>
+<!--내정보-->
+<div data-role="page" id="mybox_info">
+	<div data-role="header" data-position="fixed" class="bg_white bdbt hdleft ui-header ui-bar-inherit ui-header-fixed slidedown">
+		<h1 class="ui-title">내정보</h1>
+		<a class="ui-btn-left ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-back ui-btn-icon-notext" href="#" onclick="backClick();">이전</a>
+		<ul class="header_box_btn">
+			<li><a href="#mybox_info_edit" class="btn_txt fnred">수정</a></li>
+		</ul>
+	</div><!-- /header -->
+	<div data-role="main">
+		<form name="fileForm" id="fileForm" method="post" enctype="multipart/form-data" action="">
+			<input type="hidden" id="attchFileYn" 	  name="attchFileYn" />					
+			<input type="hidden" id="attchFileSn" 	  name="attchFileSn" />
+			<input type="hidden" id="attchFileDtlsSn" name="attchFileDtlsSn"/>
+		</form>		
+	
+		<div class="edit_profile">
+			<div class="profile_pic01 profile60 noprofile" id="profilePic">
+				<button>사진 등록하기</button>
+					<input type="file"   value="파일 업로드"  accept="image/*;capture=camera" id="uploadUserInfoPic" name="uploadMealPic" class="upload" style="opacity: 0; position: relative;" />
+			</div>
+		</div>
+		<ul data-role="listview" class="health_list view ui-listview view">
+			<li class="health_list_cm t01 ui-li-static ui-body-inherit">
+				<p class="fnt_sm02">별명</p>
+				<h1 id="myInfoUserNm"></h1>
+			</li>
+			<li class="health_list_cm t01 ui-li-static ui-body-inherit">
+				<p class="fnt_sm02" >성별</p>
+				<h1 id="myInfoGender"></h1>
+			</li>
+			<li class="health_list_cm t01 ui-li-static ui-body-inherit">
+				<p class="fnt_sm02">출생년도</p>
+				<h1 id="myInfoBirth"></h1>
+			</li>
+			<li class="health_list_cm t01 ui-li-static ui-body-inherit">
+				<p class="fnt_sm02">키</p>
+				<h1 id="myInfoHeight"></h1>
+			</li>
+			<li class="health_list_cm t01 ui-li-static ui-body-inherit">
+				<p class="fnt_sm02">체중</p>
+				<h1 id="myInfoWeight"></h1>
+			</li>
+		</ul>
+	</div><!-- /content -->
+    <!-- footer -->
+    <div data-role="footer" data-position="fixed">
+		<div data-role="navbar">
+			<ul class="footer">
+				<li><a href="../mn/dashboard.html" data-icon="custom" class="ui-nodisc-icon" rel="external">대시보드</a></li>
+				<li><a href="../tl/timeline.html" data-icon="custom" class="ui-nodisc-icon" rel="external">타임라인</a></li>
+				<li><a href="../hr/register.html" data-icon="custom" class="ui-nodisc-icon ui-btn-icon-notext ui-icon-device" rel="external">등록</a></li>
+				<li><a href="../rt/report.html" data-icon="custom" class="ui-nodisc-icon" rel="external">리포트</a></li>
+				<li><a href="../bx/myBoxMain.html" data-icon="custom" class="ui-nodisc-icon footer_on" rel="external">마이페이지</a></li>
+			</ul>
+		</div>
+	</div>
+    <!-- //footer -->
+		
+</div><!-- /page -->
+<!--//내정보-->
+
+<!--내정보수정-->
+<div data-role="page" id="mybox_info_edit">
+	<div data-role="header" data-position="fixed" class="bg_white bdbt hdleft ui-header ui-bar-inherit ui-header-fixed slidedown">
+		<h1 class="ui-title">내정보수정</h1>
+		<a class="ui-btn-left ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-back ui-btn-icon-notext" href="#" onclick="backClick();">이전</a>
+		<ul class="header_box_btn">
+			<li><a href="#" class="btn_txt submitBtn" onclick="myInfoSaveConfirm();">저장</a></li>
+		</ul>
+	</div><!-- /header -->
+	<div data-role="main">
+		<div class="required_desc"><span>필수입력</span></div>
+		<ul data-role="listview" class="health_edit t01 ui-listview">
+			<li class="ui-field-contain">
+				<label for="editUserNm" class="required_check">별명</label>
+				<input type="text" id="editUserNm" placeholder="입력해주세요" />
+			</li>
+			<li class="ui-field-contain">
+				<span class="edit_th required_check">성별</span>
+				<div class="tg_cm">
+					<fieldset data-role="controlgroup" data-type="horizontal">
+						<legend class="hidden">성별선택</legend>
+						<input name="editGender" id="editGenderM" type="radio" checked="checked" value="M">
+						<label for="editGenderM">남성</label>
+						<input name="editGender" id="editGenderF" type="radio" value="F">
+						<label for="editGenderF">여성</label>
+					</fieldset>
+				</div>
+			</li>
+			<li class="ui-field-contain">
+				<label for="editBirth" class="required_check">출생년도</label>
+				<input type="number" id="editBirth" maxlength="4" oninput="maxLengthCheck(this);" placeholder="입력해주세요(4자리)" />
+			</li>
+			<li class="ui-field-contain">
+				<label for="editHeight" class="required_check">키</label>
+				<input type="number" id="editHeight" maxlength="3" oninput="maxLengthCheck(this);" placeholder="입력해주세요(cm)" />
+			</li>
+			<li class="ui-field-contain">
+				<label for="editWeight" class="required_check">체중</label>
+				<input type="number" id="editWeight" maxlength="3" oninput="maxLengthCheck(this);" placeholder="입력해주세요(kg)" />
+			</li>
+		</ul>
+	</div><!-- /content -->
+	
+	<div data-role="popup" id="myInfoSavePopup" data-overlay-theme="b" class="alert01 hiidden" style="min-width:280px;max-width:400px;">    
+	<div role="main">	
+		<h3 class="confirmMsg">저장하시겠습니까?</h3>
+		<ul class="btn_box01">
+			<li><a class="ui-btn ui-btn-inline fnred" href="#" onclick="backClick();">아니오</a></li>
+			<li><a class="ui-btn ui-btn-inline" href="#" onclick="myInfoSave();" data-transition="fade">예</a></li>
+		</ul>
+     </div>
+ 	</div>	
+
+</div><!-- /page -->
+<!--//내정보수정-->
+
+</body>
+
+<script type="text/javascript" charset="utf-8" src="../../js/app/bx/myInfo.js" defer="defer"></script>
+
+</html>

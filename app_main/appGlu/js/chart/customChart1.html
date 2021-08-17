@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" charset="utf-8">
+    <style>
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: auto;
+  position: relative;
+}
+
+#bar_chart text {
+  font: 10px sans-serif;
+}
+
+.axis path {
+  display: none;
+}
+
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.group-label {
+  font-weight: bold;
+  text-anchor: end;
+}
+
+form {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+#donut_chart{
+    height : 200px;
+}
+#bar_chart{
+    height : 200px;
+}
+</style>
+</head>
+<body>
+<input type="button" value="prev" id="prevBtn" onClick="javascript:clickBar(1)">
+<input type="button" value="next" id="nextBtn" onClick="javascript:clickBar(2)">
+<input type="button" value="insert new Value1" id="newBtn1" onClick="javascript:setValue(1)">
+<input type="button" value="insert new Value2" id="newBtn2" onClick="javascript:setValue(2)">
+<div id="donut_chart"></div>
+<div id="bar_chart"></div>
+<script src="../../js/chart/d3.min.js"></script>
+<script src="../../js/chart/custom/customChart.js" charset="utf-8"></script>
+<script>
+var rawData1 = [{"day":1,"date":"20180305","walkCnt":3000, "runCnt":100}
+                  ,{"day":2,"date":"20180306","walkCnt":1300, "runCnt":200}
+                  ,{"day":3,"date":"20180307","walkCnt":5000, "runCnt":400}
+                  ,{"day":4,"date":"20180308","walkCnt":6000, "runCnt":100}
+                  ,{"day":5,"date":"20180309","walkCnt":2400, "runCnt":100}
+                  ,{"day":6,"date":"20180310","walkCnt":10000, "runCnt":10000}
+                  ,{"day":7,"date":"20180311","walkCnt":1000, "runCnt":0}
+                 ];
+var rawData2 = [ {"day":1,"date":"20180312","walkCnt":2000, "runCnt":100}
+                  ,{"day":2,"date":"20180313","walkCnt":400, "runCnt":200}
+                  ,{"day":3,"date":"20180314","walkCnt":3000, "runCnt":400}
+                  ,{"day":4,"date":"20180315","walkCnt":10000, "runCnt":100}
+                  ,{"day":5,"date":"20180316","walkCnt":5000, "runCnt":100}
+                  ,{"day":6,"date":"20180317","walkCnt":5000, "runCnt":10000}
+                  ,{"day":7,"date":"20180318","walkCnt":1000, "runCnt":0}
+                 ];
+
+var customChart = new CustomChart({ "bar":{"div":"#bar_chart"},
+                                    "donut":{"div":"#donut_chart"},
+                                    "goalValue":10000
+                                    ,"colors":["gray","#3d6cf0", "#33c641", "#ADD6FB", "#3399FF"]
+                                    });
+var selIndex = 3;
+
+function clickBar(gubun){
+    if(gubun==1){
+        selIndex = selIndex>0?selIndex-1:0;
+    }else{
+        selIndex = selIndex>5?selIndex:selIndex+1;
+    }
+    console.log(selIndex);
+    customChart.clickBarChart(selIndex);
+}
+
+function setValue(gubun){
+    if(gubun==1){
+        customChart.insertData(rawData1);
+    }else{
+        customChart.insertData(rawData2);
+    }
+}
+
+</script>
+</body>
+</html>

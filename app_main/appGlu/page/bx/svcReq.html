@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>서비스코드 등록</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="../../css/jquery/jquery.mobile-1.4.5.min.css" />
+	<link rel="stylesheet" href="../../../css/app/common.css" /><!--공통-->
+	<link rel="stylesheet" href="../../../css/app/style.css" /><!--서브화면-->
+	<link rel="stylesheet" href="../../css/app/swiper.min.css" />
+	
+	<script type="text/javascript" charset="utf-8" src="../../js/jquery/jquery.js"></script>
+		
+    <script type="text/javascript" charset="utf-8" src="../../js/jquery/jquery.mobile-1.4.5.js"></script>    
+    <script type="text/javascript" charset="utf-8" src="../../js/common/common.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../js/common/date.js"></script>
+
+</head>
+<body>
+
+<!--기관코드등록-->
+<div data-role="page" id="main">
+	<div data-role="header" data-position="fixed" class="bg_white bdbt hdleft ui-header ui-bar-inherit ui-header-fixed slidedown">
+		<h1 class="ui-title">서비스 코드 등록</h1>
+		<a class="ui-btn-left ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-back ui-btn-icon-notext" href="#" data-rel="back">이전</a>
+	</div><!-- /header -->
+	<div data-role="main">
+		<p class="code_txt">기관에서 발급된 코드를 등록하시면 기관에서 제공하는 서비스를 제공받을 수 있습니다.</p>
+		<ul data-role="listview" class="health_edit t001 ui-listview">
+			<li class="ui-field-contain mg">
+				<input type="text" id="prmoSvcCd" placeholder="서비스 코드 입력" />
+				<button id="svcCdReqBtn">등록</button>
+			</li>
+		</ul>
+		<p class="error_txt" style="display:none;">* 입력한 코드정보가 존재하지 않습니다.</p>
+		<p class="error_txt" style="display:none;">* 이미 승인요청 중입니다.</p>
+		<p class="error_txt" style="display:none;">* 이미 등록된 서비스입니다.</p>
+
+		<div class="health_edit pd1em svcCnfmDiv" style="display:none;">
+			<p class="agree_txt"><span id="svcOrgNm"></span> 개인정보를 모니터링하고 관리하는데 <span>동의합니다.</span></p>
+			<p>서비스기간 : <span id="svcPeriod"></span></p>
+			<p></p>
+			<ul class="btn_ul">
+				<li><button id="svcCnfmNoBtn">아니오</button></li>
+				<li><button class="confirm" id="svcCnfmYesBtn">예</button></li>
+			</ul>
+		</div>
+
+	</div><!-- /content -->
+		
+</div><!-- /page -->
+<!--//기관코드등록-->
+</body>
+
+<script type="text/javascript" charset="utf-8" src="../../js/app/bx/svcReq.js" defer="defer"></script>
+
+</html>

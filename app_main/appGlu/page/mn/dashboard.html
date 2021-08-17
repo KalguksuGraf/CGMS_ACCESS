@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Page Title</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="../../css/jquery/jquery.mobile-1.4.5.min.css" />
+	<link rel="stylesheet" href="../../css/app/common.css" />
+	<link rel="stylesheet" href="../../css/app/style.css"/>
+	<script type="text/javascript" charset="utf-8" src="../../js/jquery/jquery.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/jquery/jquery.mobile-1.4.5.js"></script>
+	
+	<script type="text/javascript" charset="utf-8" src="../../js/app/mn/dashboard.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/common/jappinf.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/app/cm/deviceutil.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/common/common.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/common/date.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/chart/d3.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/chart/custom/cgmMainChart.js"></script>
+</head>
+<body>
+
+
+
+ <!--알림팝업-->
+ <div class="popup_back connectPU" style="display:none;">
+	  <div class="popup_notification">
+			<div class="wrap_pop_box">
+					
+				<div class="deshborad_auto_height">
+					<div class="device_box_bot">
+						<p class="txt_title">CGM을 연결해주세요</p>
+						<p class="txt_cont">CGM 연결을 위해서 휴대폰의 </br>블루투스가 "켜짐" 상태인지확인해주세요 </p>
+						<a href="#" class="pairOpen" data-transition="fade">연결하기</a>
+					</div>
+				</div>
+
+			</div>
+		  <ul class="btn_box02">
+				 <li><a class="ui-btn ui-btn-inline neverAgainPUBtn" href="#">다시보지 않기</a></li>
+				 <li><a class="ui-btn ui-btn-inline pairPUCloseBtn" href="#">닫기</a></li>
+			</ul>
+	  </div>
+ </div>
+ <!--//알림팝업-->
+ 
+  <!-- 기기선택 -->
+<div data-role="popup" id="device_sugar_list" class="pop_dialog wid310 " style="display:none; data-dismissible="false" data-overlay-theme="b">
+	  <div data-role="header" class="bg_white">
+			<h1>기기선택</h1>
+	  </div>
+	  <div role="main" class="ui-content">
+			<p class="pop_dev_txt">연결하고자 하는 기기를 선택해주세요</p>
+			<ul class="code_list">
+				 <li>
+					 <input type="radio" name="device_list01" id="device_list01_01">
+					 <label for="device_list01_01" class="be">
+						<span class="device_img" style="background-image:url(../../images/app/device/g5.png)">기기이미지</span>
+						<p>G5</p>
+					</label>
+				 </li>
+				 <li>
+					 <input type="radio" name="device_list01" id="device_list01_02">
+					 <label for="device_list01_02" class="be">
+						<span class="device_img" style="background-image:url(../../images/app/device/libre.png)">기기이미지</span>
+						<p>Libre</p>
+					</label>
+				 </li>
+			</ul>
+	  </div>
+	  <ul class="btn_box03">
+			<li><a href="#" class="ui-btn on">선택완료</a></li>
+	  </ul>
+</div>
+<!-- /기기선택 -->
+ 
+  <!--임시 기기 선택 알림팝업-->
+ <div class="popup_back selectBsDevicePU" style="display:none;">
+	  <div class="popup_notification" style="height: 27%!important;">
+			<div class="wrap_pop_box">
+				<div class="deshborad_auto_height">
+					<div class="device_box_bot">
+						<p class="txt_title">사용하실 센서를 선택해주세요.</p>
+					</div>
+				</div>
+
+			</div>
+		  <ul class="btn_box02">
+				 <li><a class="ui-btn ui-btn-inline selectGSeries" href="#">G Series</a></li>
+				 <li><a class="ui-btn ui-btn-inline selectLibre1" href="#">Libre</a></li>
+			</ul>
+	  </div>
+ </div>
+  <!--임시 기기 선택 알림팝업-->
+ 
+  <!--임시 DEXCOM G5 알림팝업-->
+ <div class="popup_back connecG5ConsentChkPu" style="display:none;" >
+	  <div class="popup_notification" style="height: 35% !important;">
+			<div class="wrap_pop_box">
+
+				<div class="deshborad_auto_height">
+					<div class="device_box_bot">
+						<p class="txt_title">G Series 선택</p>
+						<p class="txt_cont"> G5 또는 G6 연결을 진행하시겠습니까? </p>
+					</div>
+				</div>
+
+			</div>
+		  <ul class="btn_box02">
+				 <li><a class="ui-btn ui-btn-inline connecG5ConsentChk_Y" href="#">G5</a></li>
+				 <li><a class="ui-btn ui-btn-inline connecG6ConsentChk_Y" href="#">G6</a></li>
+			</ul>
+	  </div>
+ </div>
+ <!--임시 DEXCOM G5 알림팝업-->
+ 
+  <!--임시 libre1 알림팝업-->
+ <div class="popup_back connecLibre1ConsentChkPu" style="display:none;">
+	  <div class="popup_notification">
+			<div class="wrap_pop_box">
+
+				<div class="deshborad_auto_height">
+					<div class="device_box_bot">
+						<p class="txt_title">Libre 연결동의</p>
+						<p class="txt_cont">Libre 연결을 위해 NFC를 </br> "기본모드"로 변경해주세요.</br> Libre 연결을 진행하시겠습니까? </p>
+					</div>
+				</div>
+
+			</div>
+		  <ul class="btn_box02">
+				 <li><a class="ui-btn ui-btn-inline connecLibre1ConsentChk_Y" href="#">네</a></li>
+				 <li><a class="ui-btn ui-btn-inline connecLibre1ConsentChk_N" href="#">아니오</a></li>
+			</ul>
+	  </div>
+ </div>
+ <!--//임시 libre 알림팝업-->
+
+<!-- 메인 대시보드 -->
+<div data-role="page" id="deshboard">
+
+	<!-- 센서 세션 종료 및 오류 6시간 -->
+	<div id="error_01" data-role="popup" data-overlay-theme="b" class="popup_overflow w300">
+		<div class="popup_arror_area">
+			<h3>센서 세션이 6시간 후 종료됩니다.</h3>
+			<p>센서를 교체하지 않는경우,</br>이 시간 후에는 경고 또는 </br>알람을 수신하지 못하게 됩니다.</p>
+			<button class="popupCloseBtn">확인</button>
+		</div>
+	</div>
+	<!-- //센서 세션 종료 및 오류 6시간 -->
+
+	<!-- 센서 세션 종료 및 오류 2시간 -->
+	<div id="error_02" data-role="popup" data-overlay-theme="b" class="popup_overflow w300">
+		<div class="popup_arror_area">
+			<h3>센서 세션이 2시간 후 종료됩니다.</h3>
+			<p>센서를 교체하지 않는경우,</br>이 시간 후에는 경고 또는 </br>알람을 수신하지 못하게 됩니다.</p>
+			<button class="popupCloseBtn">확인</button>
+		</div>
+	</div>
+	<!-- //센서 세션 종료 및 오류 2시간 -->
+
+	<!-- 센서 세션 종료 및 오류 30분 -->
+	<div id="error_03" data-role="popup" data-overlay-theme="b" class="popup_overflow w300">
+		<div class="popup_arror_area">
+			<h3>센서 세션이 30분 후 종료됩니다.</h3>
+			<p>센서를 교체하지 않는경우,</br>이 시간 후에는 경고 또는 </br>알람을 수신하지 못하게 됩니다.</p>
+			<button class="popupCloseBtn">확인</button>
+		</div>
+	</div>
+	<!-- //센서 세션 종료 및 오류 30분 -->
+
+	<!-- 센서 교체 -->
+	<div id="error_04" data-role="popup" data-overlay-theme="b" class="popup_overflow w300">
+		<div class="popup_arror_area">
+			<h3>지금 센서를 교체하십시오</h3>
+			<p>센서를 교체하지 않는경우,</br>이 시간 후에는 경고 또는 </br>알람을 수신하지 못하게 됩니다.</p>
+			<a href="#remove" class="text_pop_link mt1_1" data-transition="fade">센서 제거는 어떻게 하나요?</a>
+			<button class="popupCloseBtn">확인</button>
+		</div>
+	</div>
+	<!-- //센서 세션 종료 및 오류 30분 -->
+	
+	<!-- 센서 세션 종료 및 오류 6시간 -->
+	<div id="error_05" data-role="popup" data-overlay-theme="b" class="popup_overflow w300">
+		<div class="popup_arror_area">
+			<h3>센서 세션이 7일 남았습니다.</h3>
+			<button class="popupCloseBtn">확인</button>
+		</div>
+	</div>
+	<!-- //센서 세션 종료 및 오류 6시간 -->
+	
+		<!-- 센서 세션 종료 및 오류 6시간 -->
+	<div id="error_06" data-role="popup" data-overlay-theme="b" class="popup_overflow w300">
+		<div class="popup_arror_area">
+			<h3>센서 세션이 3일 남았습니다.</h3>
+			<button class="popupCloseBtn">확인</button>
+		</div>
+	</div>
+	<!-- //센서 세션 종료 및 오류 6시간 -->
+	
+		<!-- 센서 세션 종료 및 오류 6시간 -->
+	<div id="error_07" data-role="popup" data-overlay-theme="b" class="popup_overflow w300">
+		<div class="popup_arror_area">
+			<h3>센서 세션이 2일 남았습니다.</h3>
+			<button class="popupCloseBtn">확인</button>
+		</div>
+	</div>
+	<!-- //센서 세션 종료 및 오류 6시간 -->
+	
+		<!-- 센서 세션 종료 및 오류 6시간 -->
+	<div id="error_08" data-role="popup" data-overlay-theme="b" class="popup_overflow w300">
+		<div class="popup_arror_area">
+			<h3>센서 세션이 1일 남았습니다.</h3>
+			<button class="popupCloseBtn">확인</button>
+		</div>
+	</div>
+	<!-- //센서 세션 종료 및 오류 6시간 -->
+	
+	<!-- 페어링 상태확인 및 첫 보정값 입력 페이지 이동 -->
+	<div id="connectFollow" data-role="popup" data-overlay-theme="b" class="popup_overflow w300">
+		<div class="popup_arror_area">
+			<h3>센서 연결을 계속하십시오.</h3>
+			<p class = "changeText">센서 작업이 멈추었습니다. <br> 작업을 마무리 해 주세요. </p>
+			<button class="connectFollowBtn">이동</button>
+		</div>
+	</div>
+	<!-- //센서 세션 종료 및 오류 30분 -->
+
+
+	<!-- 혈당 등록 -->	
+	<div data-role="panel" id="input_sugar" class="panel_register" data-position="bottom" data-display="overlay">	
+		<div class="">	
+			 <div data-role="header">	
+				<a href="" data-rel="close" id="input_sugar_close" class="ui-btn ui-btn-icon-notext ui-icon-pop_close ui-nodisc-icon ui-btn-left">닫기</a>	
+			</div>	
+			<div class="cont-inner">	
+				<div class="transmitter_box sugar">	
+					<div class="sugar_desc01">혈당 측정값을 입력해주세요</div>	
+					<fieldset>	
+						<legend class="hidden">혈당 측정값</legend>	
+						<div class="transmitter_inp_box">	
+							<label for="device_num" class="ui-hidden-accessible">혈당 측정값</label><input type="number" class="inputCorrection" id="device_num" placeholder="000" />	
+						</div>	
+					</fieldset>	
+					<p class="sugar_desc02">mg/dL</p>	
+				</div>	
+				<div class=""><a href="#" class="reg save ui-btn inputCorrectBtn">완료</a></div><!-- 혈당 측정값 입력시 class="save"에서 class="blue"로 전환 -->	
+			  	
+			</div>	
+				
+		</div>	
+	</div>	
+	<!-- //혈당 등록 -->	
+
+
+	<div role="main">
+		<div class="top_header dashTopHeader">
+			<h1 class="ui-title small"></h1>
+			<a href="#input_sugar" class="ui-btn ui-btn-icon-notext ui-btn-right ui-icon-sugar ui-nodisc-icon etc_ri on correctNoti">혈당<!-- 새혈당이 있으면 class="on" --></a>	
+			<a href="./notice.html" rel="external" id="newnotif" class="ui-btn ui-btn-icon-notext ui-btn-right ui-icon-bell ui-nodisc-icon">알림<!-- 새알림이 있으면 class="on" --></a>
+			
+		</div>
+		
+		
+		<!-- start 버튼 -->	
+		<div class="deshborad_auto_height startDiv" style="display:none;">	
+			<div class="chart_box_top bg">	
+				<div class="measure_circle_value">	
+					<a href="" class="measure_circle_value_btn startSensor">시작</a>	
+				</div>	
+			</div>	
+			<div class="device_box_bot">
+				<p class="txt_title mt2">2시간의 센서 가동 준비를 위해 </br>시작 버튼을 눌러주세요 </p>	
+				<p class="txt_cont">2시간의 센서 가동 준비 기간동안은 </br>센서 포도당 수치, 알람/ 경고를 </br>받을 수 없습니다. </p>	
+			</div>	
+		</div>	
+		<!-- //start 버튼 -->	
+		<!-- 센서 가동 준비 기간 -->	
+		<div class="deshborad_auto_height warmupDiv" style="display:none;">	
+			<div class="chart_box_top bg">	
+				<div class="measure_circle_value">	
+					<div class="measure_circle_value_time">	
+						<p>센서 가동 준비</p>	
+						<p class="time warmUpTimer">10:23</p>	
+					</div>	
+					<div class="measure_circle_value_donut">	
+					 도넛그래프	
+					</div>	
+				</div>	
+			</div>	
+			<div class="device_box_bot">	
+				<p class="txt_title mt2">센서 가동 준비 기간 동안 </br>휴대폰과 트랜스미터를 가까이 두세요</p>	
+				<p class="txt_cont">2시간의 센서 가동 준비 기간동안은 </br>센서 포도당 수치, 알람/ 경고를 </br>받을 수 없습니다. </p>	
+			</div>	
+		</div>	
+		<!-- //센서 가동 준비 기간 -->	
+		<!-- 첫번째 측정값 입력 -->	
+
+		<div class="deshborad_auto_height firCorrectionValue" style="display:none;">	
+			<div class="chart_box_top bg">	
+				<div class="measure_circle_value">	
+					<a href="#input_sugar01" class="measure_circle_value_btn" data-rel="popup" data-position-to="window" data-transition="pop">첫번째<br/><strong class="mt03">시작</strong></a>	
+				</div>	
+			</div>	
+			<div class="device_box_bot">	
+				<p class="txt_title"><strong>센서 가동 준비 완료</strong></p>	
+				<p class="txt_title">첫 번째 혈당 측정값을 입력합니다.</p>	
+				<a href="#q_info" class="text_pop_link" data-rel="popup" data-position-to="window" data-transition="pop">왜 측정값을 두 번 입력해야 하나요?</a>	
+				<dl>	
+					<dt>단계 :</dt>	
+					<dd>	
+						<ul>	
+							<li>1. 손을 씻고 말립니다.</li>	
+							<li>2. 혈당계로 손가락 채혈을 합니다.</li>	
+							<li>3. 혈당계의 정화한 값을 즉시 입력합니다.</li>	
+						</ul>	
+					</dd>	
+				</dl>	
+			</div>	
+		</div>	
+	
+		<!-- //첫번째 측정값 입력 -->	
+	
+		
+		
+
+		<div class="deshborad_auto_height">
+			<div class="chart_box_top bg">
+				<div class="chart_circle">
+					<!-- <div class="circle_arrow c1 icon_c12"></div> --> <!-- icon_c11(1개), icon_c12(2개), icon_c12(3개) -->
+					<!-- <div class="circle_arrow c2 icon_c21"></div> -->
+					<!-- <div class="circle_arrow c3 icon_c31"></div> -->
+					<!-- <div class="circle_arrow c4 icon_c41"></div> -->
+					<div id="circle_arrow" class=""></div> <!-- icon_c51(1개), icon_c52(2개), icon_c52(3개) -->
+
+					<div class="chart_circle1">
+						<div id="chart_circle2" class="chart_circle2"><!-- bg01(그레이색), bg02(레드), bg03(노랑색) -->
+							<div class="chart_circle3">
+								<p></p>
+								<p>mg/dL</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="chart_box_bot">
+				<div class="btn_area" id="goWideMain"><a href="#" class="zoom_in ui-btn ui-btn-icon-notext" data-transition="fade">확대</a></div>
+				<div class="chart_dot">
+					<div class="mainChart" style="float: left;width: 90% !important;height : 100%;overflow: hidden;overflow-x: auto;"></div>				
+					<div class="yDomain" style="float:right;width: 10% !important; height: 100% !important;">
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+	<!-- ` -->
+	<div data-role="footer" data-position="fixed">
+		<div data-role="navbar">
+			<ul class="footer">
+				<li><a href="../mn/dashboard.html" data-icon="custom" class="ui-nodisc-icon footer_on" rel="external">대시보드</a></li>
+				<li><a href="../tl/timeline.html" data-icon="custom" class="ui-nodisc-icon" rel="external">타임라인</a></li>
+				<li><a href="../hr/register.html" data-icon="custom" class="ui-nodisc-icon ui-btn-icon-notext ui-icon-device" rel="external">등록</a></li>
+				<li><a href="../rt/report.html" data-icon="custom" class="ui-nodisc-icon" rel="external">리포트</a></li>
+				<li><a href="../bx/myBoxMain.html" data-icon="custom" class="ui-nodisc-icon" rel="external">마이페이지</a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- /footer -->
+	
+</div>
+<!-- //메인 대시보드 -->
+
+
+
+</body>
+</html>

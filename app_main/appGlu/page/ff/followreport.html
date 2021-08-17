@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Page Title</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover, shrink-to-fit=no">
+	<link rel="stylesheet" href="../../css/jquery/jquery.mobile-1.4.5.min.css" />
+	<link rel="stylesheet" href="../../css/app/common.css" />
+	<link rel="stylesheet" href="../../css/app/style.css"/>
+	<script type="text/javascript" charset="utf-8" src="../../js/jquery/jquery.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/jquery/jquery.mobile-1.4.5.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/common/jappinf.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/common/common.js"></script>	
+	<script type="text/javascript" charset="utf-8" src="../../js/common/date.js"></script>
+	
+	<script type="text/javascript" charset="utf-8" src="../../js/chart/d3.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/chart/custom/avgCalChart.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/chart/custom/barStackChart.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/chart/custom/cgmRptChart.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/chart/custom/cgmStackLineChart.js"></script>
+	
+	<script type="text/javascript" charset="utf-8" src="../../js/app/ff/followreport.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/app/ff/followPushSnd.js"></script>
+	<!-- 스와이프 -->
+	<link rel="stylesheet" href="../../css/app/swiper.min.css" />
+	<script type="text/javascript" charset="utf-8" src="../../js/jquery/swiper.jquery.min.js"></script>
+	<script>
+// 	$(document).ready(function(){
+// 		var swiper1 = new Swiper('.swiper1', {
+// 		 width : screen.width,
+// 		 slidesPerView: 1,
+// 		 spaceBetween: 0,
+// 		 navigation: {
+// 			  nextEl: '.swiper-button-next.next1',
+// 			  prevEl: '.swiper-button-prev.prev1'
+// 			}
+// 		});
+// 	});
+	</script>
+	<!-- /스와이프 -->
+
+</head>
+<body>
+
+<div data-role="page" id="deshboard">
+	<div data-role="tabs">
+		<!--탭메뉴-->
+		<div data-role="navbar" class="report_tab">
+			<ul>
+				<li><a href="#cont_list01" id="tab_s" data-ajax="false" class="tabMenu tab_on">CGMS 통계</a></li>
+				<li><a href="#cont_list02" id="tab_r" data-ajax="false" class="tabMenu">리포트</a></li>
+			</ul>
+		</div>
+		<!--//탭메뉴-->
+		
+		<!-- 탭1-CGMS 통계 -->
+		<div id="cont_list01" data-inset="false" class="tab_cont_box">
+
+			<div data-role="tabs">
+				<!-- 탭메뉴 -->
+				<div data-role="navbar" class="calendar_tab">
+					<ul>
+						<li><a href="#day_cont" data-ajax="false" id="sDayId" class="tabDay tab_on">일별</a></li>
+						<li><a href="#day_cont" data-ajax="false" id="sWeekId" class="tabDay">주간</a></li>
+						<li><a href="#day_cont" data-ajax="false" id="sMonthId" class="tabDay">월간</a></li>
+					</ul>
+				</div>
+				<!-- //탭메뉴 -->
+				
+				<!-- 탭1-일별 -->
+				<div id="day_cont" data-inset="false" class="tab_cont_sub_box">
+					
+					<div class="report_tab_box t01">
+						 <div class="calendar_date">
+							  <div class="date dateTitle"></div>
+							  <div class="swiper_button_date">
+									<div class="swiper-button-next next1" tabindex="0" role="button" aria-label="Next slide" aria-disabled="true"></div>
+									<div class="swiper-button-prev prev1" tabindex="0" role="button" aria-label="Previous slide" aria-disabled="true"></div>
+							  </div>
+						 </div>
+
+						<!--swiper-container-->
+						<div class="swiper-container swiper1"> 
+							<div class="swiper-wrapper">
+								<!--slide1-->
+								<div class="swiper-slide">
+									<div class="content_view_box">
+										<div id="rptChart" class="chart_div" style="height:230px; ">
+											chart_line
+										</div>
+
+										<div class="myhealth_sum">
+											<ul>
+												<li><div class=""><div>평균혈당</div><div class="" id="avgValueTxt"><span>mg/dL</span></div></div></li>
+												<li><div class=""><div>표준편차</div><div class="" id="stddevValueTxt"><span>mg/dL</span></div></div></li>
+												<li><div class=""><div>최고혈당</div><div class="color_yellow" id="maxValueTxt"><span>mg/dL</span></div></div></li>
+												<li><div class=""><div>최저혈당</div><div class="color_red" id="minValueTxt"><span>mg/dL</span></div></div></li>
+											</ul>
+										</div>
+
+									</div>
+									<div class="content_view_box">
+										<h2>혈당 범위</h2>
+										<ul class="sugar_range">
+											<li>
+												<div id="rangeGraphDiv" class="graph_box" style="height:140px; width:160px;"></div>
+											</li>
+											<!---- 20200117 ---->
+											<li class="li_table_box">
+												<ul class="main_dot_list">
+													<li class="normal"><span>정상</span><span id="normalPerTxt">0%</span></li>
+													<li class="high"><span>고혈당</span><span id="highPerTxt">0%</span></li>
+													<li class="low"><span>저혈당</span><span id="lowPerTxt">0%</span></li>
+													<li class="hot_low"><span>긴급 저혈당</span><span id="emerPerTxt">0%</span></li>
+												</ul>
+											</li>
+
+										</ul>
+
+									</div>
+									<div class="content_view_box">
+										<h2>시간대 별 혈당</h2>
+										<div id="timeRangeGraphDiv" class="chart_div" style="height:200px;">
+										</div>
+									</div>
+									<div class="content_view_box">
+										<h2>수치별 지속 시간</h2>
+										<ul class="chart_wrap">
+											<li>
+												<div class="chart_level_set">
+													<ul>
+														<li>정상</li>
+														<li>
+															<div class="stackBox">
+																<div class="bar sg_normal" id="normalTmPer" style="width:0%"></div>
+															</div>
+														</li>
+														<li class="value"><strong id="normalTmTxt"></strong></li>
+													</ul>
+												</div>
+											</li>
+											<li>
+												<div class="chart_level_set">
+													<ul>
+														<li>고혈당</li>
+														<li>
+															<div class="stackBox">
+																<div class="bar sg_high" id="highTmPer" style="width:0%"></div>
+															</div>
+														</li>
+														<li class="value"><strong id="highTmTxt"></strong></li>
+													</ul>
+												</div>
+											</li>
+											<li>
+												<div class="chart_level_set">
+													<ul>
+														<li>저혈당</li>
+														<li>
+															<div class="stackBox">
+																<div class="bar sg_low" id="lowTmPer" style="width:0%"></div>
+															</div>
+														</li>
+														<li class="value"><strong id="lowTmTxt"></strong></li>
+													</ul>
+												</div>
+											</li>
+											<li>
+												<div class="chart_level_set">
+													<ul>
+														<li>긴급 저혈당</li>
+														<li>
+															<div class="stackBox">
+																<div class="bar sg_hot_low" id="emerTmPer" style="width:0%"></div>
+															</div>
+														</li>
+														<li class="value"><strong id="emerTmTxt"></strong></li>
+													</ul>
+												</div>
+											</li>
+										</ul>
+
+									</div>
+								</div>
+								<!--//slide1-->
+							</div>
+						</div>
+						<!--//swiper-container-->
+
+					</div>
+				</div>
+				<!-- //탭1-일별 -->
+			</div>
+
+		</div>
+		<!-- //탭1-CGMS 통계 -->
+
+		<!-- 탭2-리포트 -->
+		<div id="cont_list02" data-inset="false" class="tab_cont_box">
+			
+			<div data-role="tabs">
+				<!-- 탭메뉴 -->
+				<div data-role="navbar" class="calendar_tab">
+					<ul>
+						<li><a href="#rep_week_cont" data-ajax="false" id="rWeekId" class="tabDay tab_on">주간</a></li>
+						<li><a href="#rep_week_cont" data-ajax="false" id="rMonthId" class="tabDay">월간</a></li>
+					</ul>
+				</div>
+				<!-- //탭메뉴 -->
+				
+				<!-- 탭1-주간 -->
+				<div id="rep_week_cont" data-inset="false" class="tab_cont_sub_box">
+					
+					<div class="report_tab_box t01">
+						<div class="calendar_date">
+							<div class="date dateTitle">2020년3월2일 - 3월7일</div>
+							<div class="swiper_button_date">
+								<div class="swiper-button-next next1" tabindex="0" role="button" aria-label="Next slide" aria-disabled="true"></div>
+								<div class="swiper-button-prev prev1" tabindex="0" role="button" aria-label="Previous slide" aria-disabled="true"></div>
+							</div>
+						</div>
+
+						<!--swiper-container-->
+						<div class="swiper-container swiper1"> 
+							<div class="swiper-wrapper">
+								<!--slide1-->
+								<div class="swiper-slide">
+									<div class="content_view_box">
+										<h2>혈당</h2>
+										<div id="cgmValDayChartDiv" class="chart_div" style="height:200px;">
+										</div>
+
+									</div>
+									<div class="content_view_box">
+										<h2>활동</h2>
+										<div class="week_chart_div">
+											<div class="graph_line" style="height:70%"><span class="actObj">10,000</span></div>
+											<ul class="bar_chart_wrap">
+												<li><div class="normal dy" style="height:0%"></div></li>
+												<li><div class="normal dy" style="height:0%"></div></li>
+<!-- 												<li><div class="high dy" style="height:0%"></div></li> -->
+												<li><div class="normal dy" style="height:0%"></div></li>
+												<li><div class="normal dy" style="height:0%"></div></li>
+												<li><div class="normal dy" style="height:0%"></div></li>
+												<li><div class="normal dy" style="height:0%"></div></li>
+												<li><div class="normal dy" style="height:0%"></div></li>
+											</ul>
+											<ul class="week_box">
+												<li><span>월</span></li>
+												<li><span>화</span></li>
+												<li><span>수</span></li>
+												<li><span>목</span></li>
+												<li><span>금</span></li>
+												<li><span>토</span></li>
+												<li><span>일</span></li>
+											</ul>
+										</div>
+									</div>
+									<div class="content_view_box">
+										<h2>식사</h2>
+										<div class="week_chart_div">
+											<div class="graph_line" style="height:70%"><span class="mealObj">2,100<em>kcal</em></span></div>
+											<ul class="bar_chart_wrap">
+												<li>
+													<div class="mealDy" style="height:100%">
+														<div class="m mealClf" style="height:0%"></div>
+														<div class="a mealClf" style="height:0%"></div>
+														<div class="e mealClf" style="height:0%"></div>
+														<div class="s mealClf" style="height:0%"></div>
+													</div>
+												</li>
+												<li>
+													<div class="mealDy" style="height:100%">
+														<div class="m mealClf" style="height:0%"></div>
+														<div class="a mealClf" style="height:0%"></div>
+														<div class="e mealClf" style="height:0%"></div>
+														<div class="s mealClf" style="height:0%"></div>
+													</div>
+												</li>
+												<li>
+													<div class="mealDy" style="height:100%">
+														<div class="m mealClf" style="height:0%"></div>
+														<div class="a mealClf" style="height:0%"></div>
+														<div class="e mealClf" style="height:0%"></div>
+														<div class="s mealClf" style="height:0%"></div>
+													</div>
+												</li>
+												<li>
+													<div class="mealDy" style="height:100%">
+														<div class="m mealClf" style="height:0%"></div>
+														<div class="a mealClf" style="height:0%"></div>
+														<div class="e mealClf" style="height:0%"></div>
+														<div class="s mealClf" style="height:0%"></div>
+													</div>
+												</li>
+												<li>
+													<div class="mealDy" style="height:100%">
+														<div class="m mealClf" style="height:0%"></div>
+														<div class="a mealClf" style="height:0%"></div>
+														<div class="e mealClf" style="height:0%"></div>
+														<div class="s mealClf" style="height:0%"></div>
+													</div>
+												</li>
+												<li>
+													<div class="mealDy" style="height:100%">
+														<div class="m mealClf" style="height:0%"></div>
+														<div class="a mealClf" style="height:0%"></div>
+														<div class="e mealClf" style="height:0%"></div>
+														<div class="s mealClf" style="height:0%"></div>
+													</div>
+												</li>
+												<li>
+													<div class="mealDy" style="height:100%">
+														<div class="m mealClf" style="height:0%"></div>
+														<div class="a mealClf" style="height:0%"></div>
+														<div class="e mealClf" style="height:0%"></div>
+														<div class="s mealClf" style="height:0%"></div>
+													</div>
+												</li>
+											</ul>
+											<ul class="week_box">
+												<li><span>월</span></li>
+												<li><span>화</span></li>
+												<li><span>수</span></li>
+												<li><span>목</span></li>
+												<li><span>금</span></li>
+												<li><span>토</span></li>
+												<li><span>일</span></li>
+											</ul>
+										</div>
+										<ul class="graph_mark_box">
+											<li><span class="m"></span><span>아침</span></li>
+											<li><span class="a"></span><span>점심</span></li>
+											<li><span class="e"></span><span>저녁</span></li>
+											<li><span class="s"></span><span>간식</span></li>
+										</ul>
+									</div>
+								</div>
+								<!--//slide1-->
+							</div>
+						</div>
+						<!--//swiper-container-->
+
+					</div>
+				</div>
+				<!-- //탭1--주간 -->
+			</div>
+		</div>
+	</div>
+	
+	<!-- 메세지등록 -->
+	<div data-role="panel" id="massage_reg" class="panel_register" data-position="bottom" data-display="overlay">
+		<div class="">
+			 <div data-role="header">
+				<a href="#" data-rel="close" class="ui-btn ui-btn-icon-notext ui-icon-pop_close ui-nodisc-icon ui-btn-left">닫기</a>
+			</div>
+			<div class="cont-inner">
+				<h1>메세지를 입력해주세요</h1>
+				<div class="write_mas">
+					<textarea id="push_cont" placeholder="(20자 내외)"></textarea>
+				</div>
+
+				<div class=""><a href="#" class="reg blue ui-btn" id="target_pushSnd">보내기</a></div>
+			  
+			</div>
+			
+		</div>
+	</div>
+	<!-- //메세지등록 -->
+
+	<!-- footer -->
+	<div data-role="footer" data-position="fixed">
+		<div data-role="navbar">
+			<ul class="footer">
+				<li><a href="../fw/followtargetdtls.html" data-icon="custom" class="ui-nodisc-icon" rel="external">대시보드</a></li>
+				<li><a href="followtimeline.html" data-icon="custom" class="ui-nodisc-icon" rel="external">타임라인</a></li>
+				<li class="mas"><a href="#massage_reg" data-icon="custom" class="" data-rel="popup" data-position-to="window" data-transition="pop"><div class="message_btn"></div></a></li>
+				<li><a href="#" data-icon="custom" class="ui-nodisc-icon footer_on" rel="external">리포트</a></li>
+				<li class="push"><a href="followpushlist.html" data-icon="custom" class="ui-nodisc-icon" rel="external">푸시내역</a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- /footer -->
+	
+</div>
+
+</body>
+</html>

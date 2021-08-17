@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Page Title</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="../../css/jquery/jquery.mobile-1.4.5.min.css" />
+	<link rel="stylesheet" href="../../css/app/common.css" />
+	<link rel="stylesheet" href="../../css/app/style.css"/>
+	<script type="text/javascript" charset="utf-8" src="../../js/jquery/jquery.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/jquery/jquery.mobile-1.4.5.js"></script>
+	
+	
+	<script type="text/javascript" charset="utf-8" src="../../js/common/jappinf.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/common/common.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/common/date.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/chart/d3.min.js"></script>
+	
+	<script type="text/javascript" charset="utf-8" src="../../js/app/fw/followtargetdtls.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/app/ff/followPushSnd.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/chart/custom/cgmMainChart.js"></script>
+</head>
+<body>
+
+
+<div data-role="page" id="user_data_detail">
+
+	
+	<!-- 메세지등록 -->
+	<div data-role="panel" id="massage_reg" class="panel_register" data-position="bottom" data-display="overlay">
+		<div class="">
+			 <div data-role="header">
+				<a href="#" data-rel="close" class="ui-btn ui-btn-icon-notext ui-icon-pop_close ui-nodisc-icon ui-btn-left">닫기</a>
+			</div>
+			<div class="cont-inner">
+				<h1>메세지를 입력해주세요</h1>
+				<div class="write_mas">
+					<textarea id="push_cont" placeholder="(20자 내외)"></textarea>
+				</div>
+
+				<div class=""><a href="#" class="reg blue ui-btn" id="target_pushSnd">보내기</a></div>
+			  
+			</div>
+			
+		</div>
+	</div>
+	<!-- //메세지등록 -->
+	
+	
+	<div role="main">
+		<div class="top_header">
+			<a href="#" id="gofollowMain"  class="ui-btn ui-btn-icon-notext ui-nodisc-icon ui-icon-black_back ui-btn-left sec">뒤로</a>
+			<ul class="detail_user_top_box">
+				<li>
+					<div class="meal_pic_div meal_pic_size" style="background-image:url('../images/contents/main_card_breakfast01.jpg')"></div>
+				</li>
+				<li>
+					<div class="txt">
+						<p class="n"></p>
+						<p class="s"></p>
+					</div>
+				</li>
+			</ul>
+		</div>
+
+		<div class="deshborad_auto_height">
+			<div class="chart_box_top bg">
+				<div class="chart_circle">
+					<!-- <div class="circle_arrow c1 icon_c12"></div> --> <!-- icon_c11(1개), icon_c12(2개), icon_c12(3개) -->
+					<!-- <div class="circle_arrow c2 icon_c21"></div> -->
+					<!-- <div class="circle_arrow c3 icon_c31"></div> -->
+					<!-- <div class="circle_arrow c4 icon_c41"></div> -->
+					<div class="" id="circle_arrow" ></div> <!-- icon_c51(1개), icon_c52(2개), icon_c52(3개) -->
+
+					<div class="chart_circle1">
+						<div  class="chart_circle2" id="chart_circle2"><!-- bg01(그레이색), bg02(레드), bg03(노랑색) -->
+							<div class="chart_circle3">
+								<p></p>
+								<p>mg/dL</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="chart_box_bot">
+				<div class="btn_area"><a href="#" class="zoom_in ui-btn ui-btn-icon-notext" data-transition="fade">확대</a></div>
+				<div class="chart_dot">
+<!-- 					<div style="width: 1200px;background: burlywood;height:100%"><a href="#error_04" data-transition="pop" data-rel="popup" data-position-to="window">chart_view</a></div>div빼고 chart부분 넣으셔도 됩니다. -->
+					<div class="mainChart" style="float: left;width: 90% !important;height : 100%;overflow: hidden;overflow-x: auto;"></div>				
+					<div class="yDomain" style="float:right;width: 10% !important; height: 100% !important;">
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+	<!-- footer -->
+	<div data-role="footer" data-position="fixed">
+		<div data-role="navbar">
+			<ul class="footer">
+				<li><a href="#" data-icon="custom" class="ui-nodisc-icon footer_on" rel="external">대시보드</a></li>
+				<li><a href="../ff/followtimeline.html" data-icon="custom" class="ui-nodisc-icon" rel="external">타임라인</a></li>
+				<li class="mas"><a href="#massage_reg" data-icon="custom" class="" data-rel="popup" data-position-to="window" data-transition="pop"><div class="message_btn"></div></a></li>
+				<li><a href="../ff/followreport.html" data-icon="custom" class="ui-nodisc-icon" rel="external">리포트</a></li>
+				<li class="push"><a href="../ff/followpushlist.html" data-icon="custom" class="ui-nodisc-icon" rel="external">푸시내역</a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- /footer -->
+	
+</div>
+
+</body>
+</html>

@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Page Title</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="../../css/jquery/jquery.mobile-1.4.5.min.css" />
+	<link rel="stylesheet" href="../../css/app/common.css" />
+	<link rel="stylesheet" href="../../css/app/style.css"/>
+	<link rel="stylesheet" href="../../css/app/loading.css" />
+	
+
+	<script type="text/javascript" charset="utf-8" src="../../js/jquery/jquery.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/jquery/jquery.mobile-1.4.5.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/app/st/deviceSetting.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/common/jappinf.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/common/common.js"></script>
+
+    <script>
+    $(document).ready(function(){
+		//------accordion-------
+		// Store Variables
+		var accordion_tab = $('.health_list_step a.tab'),
+			accordion_content = $('.health_list_step div.content');
+
+		// When the tab is clicked function
+		accordion_tab.on('click', function(e){
+
+			// Disable tab links
+			e.preventDefault();
+
+			// Remove the active class
+			accordion_tab.removeClass('active');
+
+			// Hide the content
+			accordion_content.slideUp('normal');
+
+			// If tab is hidden open it and add the active class
+			if($(this).next().is(':hidden') == true) {
+
+				$(this).addClass('active');
+
+				$(this).next().slideDown('normal');
+			 } 
+			  
+		 });
+        // Open the first tab on load
+		//accordion_tab.first().addClass('active').next().slideDown('normal');
+    });
+    </script>
+    
+</head>
+<body>
+
+<!--기기설정-->
+<div data-role="page" id="device1">
+	<div data-role="header" data-position="fixed" class="">
+		<div class="header_wrap">
+			<h1>기기연동</h1>
+			<a href="" onclick="backClick();" data-ajax="false" data-icon="back" class="ui-btn ui-btn-icon-notext ui-nodisc-icon ui-icon-black_back ui-btn-left">뒤로</a>
+		</div>
+	</div>
+	<div data-role="main">
+		<ul data-role="listview" class="health_list health_list_step ui-listview" id="device_listview">
+			 <li data-role="list-divider" class="health_list_div ui-li-divider">
+				<div>CGM</div>
+			</li>
+			<li class="list_cm2 deviceSetBtn">
+				<a href="#device2" >
+					<div class="list_cm_box list_cm_box_right list_thumb">
+						<span style="background-image:url('../../images/app/device/DexcomG6.jpg');">DEXCOM_G5</span>
+						<h1>DEXCOM G6</h1>
+						<p class="fngray">스마트 혈당측정기 덱스콤 G6</p>
+					</div>
+				</a>
+			</li>
+			<li class="list_cm2 deviceSetBtn">
+				<a href="#device2" >
+					<div class="list_cm_box list_cm_box_right list_thumb">
+						<span style="background-image:url('../../images/app/device/DexcomG5.png');">DEXCOM_G5</span>
+						<h1>DEXCOM G5</h1>
+						<p class="fngray">스마트 혈당측정기 덱스콤 G5</p>
+					</div>
+				</a>
+			</li>
+			<li class="list_cm2 deviceSetBtn">
+				<a href="#device2">
+					<div class="list_cm_box list_cm_box_right list_thumb">
+						<span style="background-image:url('../../images/app/device/Libre1.png');">LIBRE_1</span>
+						<h1>Libre</h1>
+						<p class="fngray">프리스타일 Libre</p>
+					</div>
+				</a>
+			</li>
+		</ul>
+	</div>
+
+</div>
+<!--//기기설정-->
+
+<!-- DEXCOMG5 혈당측정기 -->
+<div data-role="page" id="device2">
+    
+	
+	
+		<!-- 연결해제 popup -->
+	<div data-role="popup" id="device_disconnect" data-overlay-theme="b"  class="alert01" style="max-width:400px;">
+		<div data-role="main">
+			<h3>센서를 중단하시겠습니까?</h3>
+			<p>센서 중단 후 재 연결을 위해서는 </br>2시간의 센서 가동 준비가 필요합니다</p>
+			<ul class="btn_box01">
+				<li><a class="ui-btn ui-btn-inline" href="#" data-rel="back">취소</a></li>
+				<li><a class="ui-btn ui-btn-inline fnred sensorStopBtn" href="#">센서 중단</a></li>
+			</ul>
+		</div>
+	</div> 
+	<!-- //연결해제 popup -->
+	
+	<!-- 연결 popup -->
+	<div data-role="popup" id="device_connect" data-overlay-theme="b"  class="alert01" style="max-width:400px;">
+		<div data-role="main">
+			<h3>센서를 시작하시겠습니까?</h3>
+			<ul class="btn_box01">
+				<li><a class="ui-btn ui-btn-inline" href="#" data-rel="back">취소</a></li>
+				<li><a class="ui-btn ui-btn-inline fnred startSensor" href="#">센서 시작</a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- //연결 popup -->
+
+	<!-- 연결해제 popup -->
+	<div data-role="popup" id="device_nofairing" data-overlay-theme="b"  class="alert01" style="max-width:400px;">
+		<div data-role="main">
+			<h3>페어링을 중단하시겠습니까?</h3>
+			<p>페어링을 중단한 후 경고 또는 </br>알람을 수신하지 않습니다.</p>
+			<ul class="btn_box01">
+				<li><a class="ui-btn ui-btn-inline" href="#" data-rel="back">취소</a></li>
+				<li><a class="ui-btn ui-btn-inline fnred removeBondBtn" href="#">페어링 중단</a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- //연결해제 popup -->
+	
+	
+	<!-- 연결 popup -->
+	<div data-role="popup" id="device_startnfc" data-overlay-theme="b"  class="alert01" style="max-width:400px;">
+		<div data-role="main">
+			<h3>NFC를 시작하시겠습니까?</h3>
+			<ul class="btn_box01">
+				<li><a class="ui-btn ui-btn-inline" href="#" data-rel="back">취소</a></li>
+				<li><a class="ui-btn ui-btn-inline fnred startNFCMode" href="#">NFC 시작</a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- //연결 popup -->
+	
+	<!-- 연결해제 popup -->
+	<div data-role="popup" id="device_stopnfc" data-overlay-theme="b"  class="alert01" style="max-width:400px;">
+		<div data-role="main">
+			<h3>NFC를 중단하시겠습니까?</h3>
+			<ul class="btn_box01">
+				<li><a class="ui-btn ui-btn-inline" href="#" data-rel="back">취소</a></li>
+				<li><a class="ui-btn ui-btn-inline fnred removeBondBtn" href="#">NFC 중단</a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- //연결해제 popup -->
+	
+	<!-- 연결 popup -->
+	<div data-role="popup" id="device_fairing" data-overlay-theme="b"  class="alert01" style="max-width:400px;">
+		<div data-role="main">
+			<h3>페어링을 시작하시겠습니까?</h3>
+			<ul class="btn_box01">
+				<li><a class="ui-btn ui-btn-inline" href="#" data-rel="back">취소</a></li>
+				<li><a href="#" class="ui-btn ui-btn-inline fnred startPairing" href="#">페어링 시작</a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- //연결 popup -->
+
+
+	<div data-role="header" data-position="fixed" class="">
+		<div class="header_wrap">
+			<h1>기기연동</h1>
+			<a href="" onclick="backClick();" data-ajax="false" data-icon="back" class="ui-btn ui-btn-icon-notext ui-nodisc-icon ui-icon-black_back ui-btn-left">뒤로</a>
+		</div>
+	</div>
+
+	<div data-role="main">
+		<div>
+		    <div class="device_detail_box">
+				<div style="background-image:url('../../images/app/device/Dss.png')">덱스콤G5</div>
+			</div>
+			<ul class="device_detail_list">
+				<li>DEXCOM G5</li>
+			</ul>
+		</div>
+		<!--활성화-->
+		<ul data-role="listview" class="list_cm01 ui-listview">
+			<li>
+				 <a href="#warning_info">
+					  <h1>경고</h1>
+				 </a>
+			</li>
+			<li>
+				 <a href="#help_info">
+					  <h1>도움말</h1>
+				 </a>
+			</li>
+		</ul>
+		<div class="btn_area_box01 mt1">
+			<a href="#device_disconnect" class="ui-btn" data-rel="popup" data-position-to="window" data-transition="pop">센서 중단</a>
+			<a href="#device_nofairing" class="ui-btn" data-rel="popup" data-position-to="window" data-transition="pop">페어링 중단</a>
+		</div>
+	</div>
+
+</div>
+<!--// DEXCOMG5 혈당측정기 -->
+
+
+<!-- 경고 -->
+<div data-role="page" id="warning_info">
+    <div data-role="header" data-position="fixed" class="line">
+		<div class="header_wrap">
+			<h1>경고</h1>
+			<a href="" onclick="backClick();" data-ajax="false" data-icon="back" class="ui-btn ui-btn-icon-notext ui-nodisc-icon ui-icon-black_back ui-btn-left">뒤로</a>
+		</div>
+	</div>
+
+	<div data-role="main">
+		 <!-- 블루투스 메세지 --
+        <div class="health_desc warning">
+           <span>블루투스를 켜주세요.</span>
+       </div>
+		 <!-- //블루투스 메세지 -->
+
+        <!--로딩--
+        <div class="cm_loader_wrap">
+            <div class="cm_loader"><div class="loader">로딩</div></div>
+        </div>
+        <!--//로딩-->
+        
+		<ul data-role="listview" class="health_list ui-listview targetList">
+          <li class="list_cm5 emNoti_1">
+				<a href="#">
+					<h1>저혈당 긴급 경고(mg/dL)<span class="notice_value emrgnHyNoticeValue">55</span></h1>
+				</a>
+			 </li>
+			 <li class="list_cm5 emNoti_2">
+				<a href="#notice01" rel="external">
+					<h1>저혈당(mg/dL)<span class="notice_value emLowNoticeValue">65</span></h1>
+				</a>
+			 </li>
+			 <li class="list_cm5 emNoti_3">
+				<a href="#notice02" rel="external">
+					<h1>고혈당(mg/dL)<span class="notice_value emHighNoticeValue">155</span></h1>
+				</a>
+			 </li>
+			 <li class="list_cm5 emNoti_4">
+				<a href="#notice03" rel="external">
+					<h1>보정 알림(분)<span class="notice_value emcoretonNoticeValue">60</span></h1>
+				</a>
+			 </li>
+			 <li class="list_cm4 emNoti_5">
+				<div class="list_cm_box2">
+					  <label for="device2_2_list_label01" class="device2_list_label02">상승속도</label>
+					  <div class="setup_rdo slider_list">
+							<select name="push" id="device2_2_list_label01" class="ascentRateNoti" data-role="slider">
+								 <option value="off">Off</option>
+								 <option value="on">On</option>
+							</select>
+					  </div>
+				 </div>
+			  </li>
+           <li class="list_cm4 emNoti_6">
+				<div class="list_cm_box2">
+					  <label for="device2_2_list_label02" class="device2_list_label02">감소속도</label>
+					  <div class="setup_rdo slider_list">
+							<select name="push" id="device2_2_list_label02" class="reductionRateNoti" data-role="slider">
+								 <option value="off">Off</option>
+								 <option value="on">On</option>
+							</select>
+					  </div>
+				 </div>
+			</li>
+			<li class="list_cm4 emNoti_7">
+				<div class="list_cm_box2">
+					  <label for="device2_2_list_label02" class="device2_list_label02">신호없어짐</label>
+					  <div class="setup_rdo slider_list">
+							<select name="push" id="device2_2_list_label02" class="noSignalNoti" data-role="slider">
+								 <option value="off">Off</option>
+								 <option value="on">On</option>
+							</select>
+					  </div>
+				 </div>
+			</li>
+      </ul>
+	</div>
+</div>
+<!-- //경고 -->
+
+<!-- 저혈당 경고(mg/dL) -->
+<div data-role="page" id="notice01">
+    <div data-role="header" data-position="fixed" class="line">
+		<div class="header_wrap">
+			<h1>저혈당</h1>
+			<a href="" onclick="backClick();" data-ajax="false" data-icon="back" class="ui-btn ui-btn-icon-notext ui-nodisc-icon ui-icon-black_back ui-btn-left" rel="external">뒤로</a>
+		</div>
+	</div>
+	<div data-role="main">
+		
+		<ul data-role="listview" class="health_list ui-listview">
+          <li class="list_cm4">
+				<div class="list_cm_box2">
+					  <label for="device2_2_list_label01" class="device2_list_label02">알림</label>
+					  <div class="setup_rdo slider_list">
+							<select name="push" id="device2_2_list_label01" class="lowNoticeSugarBtn" data-role="slider">
+								 <option value="off">Off</option>
+								 <option value="on">On</option>
+							</select>
+					  </div>
+				 </div>
+			  </li>
+			 <li class="list_cm5">
+				<a href="#notice01_reg" rel="external">
+					<h1>수치(mg/dL)<span class="notice_value lowNoticeValue">65</span></h1>
+				</a>
+			 </li>
+<!-- 			 <li class="list_cm4"> -->
+<!-- 				<div class="list_cm_box2"> -->
+<!-- 					  <label for="device2_2_list_label01" class="device2_list_label02">반복</label> -->
+<!-- 					  <div class="setup_rdo select_list"> -->
+<!-- 							<select name="select-custom-1" class="lowNoticeRepeatRington" id="select-custom-1" data-native-menu="true"> -->
+<!-- 							 <option value="5">5분</option> -->
+<!-- 							 <option value="10">10분</option> -->
+<!-- 							 <option value="15">15분</option> -->
+<!-- 							 <option value="20">20분</option> -->
+<!-- 							 <option value="25">25분</option> -->
+<!-- 							 <option value="30">30분</option> -->
+<!-- 							 <option value="45">45분</option> -->
+<!-- 							 <option value="60">1시간</option> -->
+<!-- 							 <option value="120">2시간</option> -->
+<!-- 						</select> -->
+<!-- 					  </div> -->
+<!-- 				 </div> -->
+<!-- 			  </li> -->
+			 <li class="list_cm5">
+				<a href="#" rel="external">
+					<h1>소리<span class="notice_value lowNoticeRington">기본</span></h1>
+				</a>
+			 </li>
+      </ul>
+	</div>
+</div>
+<!-- //저혈당 긴급 경고(mg/dL) -->
+
+<!-- 고혈당 경고(mg/dL) -->
+<div data-role="page" id="notice02">
+    <div data-role="header" data-position="fixed" class="line">
+		<div class="header_wrap">
+			<h1>고혈당</h1>
+			<a href="" onclick="backClick();" data-ajax="false" data-icon="back" class="ui-btn ui-btn-icon-notext ui-nodisc-icon ui-icon-black_back ui-btn-left">뒤로</a>
+		</div>
+	</div>
+	<div data-role="main">
+		
+		<ul data-role="listview" class="health_list ui-listview">
+          <li class="list_cm4">
+				<div class="list_cm_box2">
+					  <label for="device2_2_list_label01" class="device2_list_label02">알림</label>
+					  <div class="setup_rdo slider_list">
+							<select name="push" id="device2_2_list_label01" class="highNoticeSugarBtn" data-role="slider">
+								 <option value="off">Off</option>
+								 <option value="on">On</option>
+							</select>
+					  </div>
+				 </div>
+			  </li>
+			 <li class="list_cm5">
+				<a href="#notice02_reg" rel="external">
+					<h1>수치(mg/dL)<span class="notice_value highNoticeValue">155</span></h1>
+				</a>
+			 </li>
+<!-- 			 <li class="list_cm4"> -->
+<!-- 				<div class="list_cm_box2"> -->
+<!-- 					  <label for="device2_2_list_label01" class="device2_list_label02">반복</label> -->
+<!-- 					  <div class="setup_rdo select_list "> -->
+<!-- 						<select name="select-custom-1" id="select-custom-1" class="highNoticeRepeatRington" data-native-menu="true"> -->
+<!-- 							 <option value="5">5분</option> -->
+<!-- 							 <option value="10">10분</option> -->
+<!-- 							 <option value="15">15분</option> -->
+<!-- 							 <option value="20">20분</option> -->
+<!-- 							 <option value="25">25분</option> -->
+<!-- 							 <option value="30">30분</option> -->
+<!-- 							 <option value="45">45분</option> -->
+<!-- 							 <option value="60">1시간</option> -->
+<!-- 							 <option value="120">2시간</option> -->
+<!-- 						</select> -->
+<!-- 					  </div> -->
+<!-- 				 </div> -->
+<!-- 			  </li> -->
+			 <li class="list_cm5">
+				<a href="#" rel="external">
+					<h1>소리<span class="notice_value highNoticeRington">기본</span></h1>
+				</a>
+			 </li>
+      </ul>
+	</div>
+</div>
+<!-- //저혈당 긴급 경고(mg/dL) -->
+
+<!-- 보정 알림(분) -->
+<div data-role="page" id="notice03">
+    <div data-role="header" data-position="fixed" class="line">
+		<div class="header_wrap">
+			<h1>보정 알림</h1>
+			<a href="" onclick="backClick();" data-ajax="false" data-icon="back" class="ui-btn ui-btn-icon-notext ui-nodisc-icon ui-icon-black_back ui-btn-left">뒤로</a>
+		</div>
+	</div>
+	<div data-role="main">
+		
+		<ul data-role="listview" class="health_list ui-listview">
+          <li class="list_cm4">
+				<div class="list_cm_box2">
+					  <label for="device2_2_list_label01" class="device2_list_label02">알림</label>
+					  <div class="setup_rdo slider_list">
+							<select name="push" id="device2_2_list_label01" class="coretonBtn" data-role="slider">
+								 <option value="off">Off</option>
+								 <option value="on">On</option>
+							</select>
+					  </div>
+				 </div>
+			  </li>
+			 <li class="list_cm5">
+				<a href="#notice03_reg" rel="external">
+					<h1>알림 주기(분)<span class="notice_value coretonNoticeValue">60</span></h1>
+				</a>
+			 </li>
+<!-- 			 <li class="list_cm5"> -->
+<!-- 				<a href="#" rel="external"> -->
+<!-- 					<h1>소리<span class="notice_value highNoticeRington">기본</span></h1> -->
+<!-- 				</a> -->
+<!-- 			 </li> -->
+      </ul>
+	</div>
+</div>
+<!-- //저혈당 긴급 경고(mg/dL) -->
+
+<!-- 트랜스미터 입력 -->
+<div data-role="page" id="notice03_reg" class="bg_color_white">
+	
+	<div data-role="header" data-position="fixed">
+		<div class="header_wrap">
+			<a href="" onclick="backClick();" data-ajax="false" data-icon="back" class="ui-btn ui-btn-icon-notext ui-nodisc-icon ui-icon-black_back ui-btn-left" >뒤로</a>
+			<h1>알림 주기</h1>
+			<a href="#"  class="ui-btn ui-nodisc-icon ui-btn-right txt blue coretonSaveBtn" rel="external">저장</a>
+		</div>
+	</div>
+	<div role="main" class="ui-content">
+		<div class="device_input_wrap">
+			<div class="transmitter_box">
+				<div class="device_desc">알림받을 주기(분)를 설정해주세요</div>
+				<fieldset>
+					<legend class="hidden">알림 주기(분) 입력</legend>
+					<div class="transmitter_inp_box">
+						<label for="alert_num" class="ui-hidden-accessible">알림 주기</label><input type="number"  class="coretonSaveData" id="alert_num" placeholder="60" />
+					</div>
+				</fieldset>
+				<p class="unit">분</p>
+				
+			</div>
+		</div>
+	</div>
+
+</div>
+<!-- //트랜스미터 입력 -->
+
+<!-- 트랜스미터 입력 -->
+<div data-role="page" id="notice01_reg" class="bg_color_white">
+	
+	<div data-role="header" data-position="fixed">
+		<div class="header_wrap">
+			<a href="" onclick="backClick();" data-ajax="false" data-icon="back" class="ui-btn ui-btn-icon-notext ui-nodisc-icon ui-icon-black_back ui-btn-left" >뒤로</a>
+			<h1>수치</h1>
+			<a href="#" data-rel="back" class="ui-btn ui-nodisc-icon ui-btn-right txt blue lowSaveBtn" rel="external">저장</a>
+		</div>
+	</div>
+	<div role="main" class="ui-content">
+		<div class="device_input_wrap">
+			<div class="transmitter_box">
+				<div class="device_desc">알림받을 수치를 설정해주세요</div>
+				<fieldset>
+					<legend class="hidden">알림 수치 입력</legend>
+					<div class="transmitter_inp_box">
+						<label for="alert_num" class="ui-hidden-accessible">알림 수치</label><input type="number"  class="lowSaveData" id="alert_num" placeholder="65" />
+					</div>
+				</fieldset>
+				<p class="unit">mg/dL</p>
+				
+			</div>
+		</div>
+	</div>
+
+</div>
+<!-- //트랜스미터 입력 -->
+
+<!-- 트랜스미터 입력 -->
+<div data-role="page" id="notice02_reg" class="bg_color_white">
+	
+	<div data-role="header" data-position="fixed">
+		<div class="header_wrap">
+			<a href="" onclick="backClick();" data-ajax="false" data-icon="back" class="ui-btn ui-btn-icon-notext ui-nodisc-icon ui-icon-black_back ui-btn-left">뒤로</a>
+			<h1>수치</h1>
+			<a href="#" data-rel="back" rel="external" class="ui-btn ui-nodisc-icon ui-btn-right txt blue highSaveBtn">저장</a>
+		</div>
+	</div>
+	<div role="main" class="ui-content">
+		<div class="device_input_wrap">
+			<div class="transmitter_box">
+				<div class="device_desc">알림받을 수치를 설정해주세요</div>
+				<fieldset>
+					<legend class="hidden">알림 수치 입력</legend>
+					<div class="transmitter_inp_box">
+						<label for="alert_num2" class="ui-hidden-accessible">알림 수치</label><input type="number"  id="alert_num2" class="highSaveData" placeholder="155" />
+					</div>
+				</fieldset>
+				<p class="unit">mg/dL</p>
+				
+			</div>
+		</div>
+	</div>
+
+</div>
+<!-- //트랜스미터 입력 -->
+
+<!-- 소리 -->
+<div data-role="page" id="notice05_reg" class="bg_color_white">
+	
+	<div data-role="header" data-position="fixed" class="line">
+		<div class="header_wrap">
+			<a href="" data-rel="back" data-ajax="false" data-icon="back" class="ui-btn ui-btn-icon-notext ui-nodisc-icon ui-icon-black_back ui-btn-left">뒤로</a>
+			<h1>수치</h1>
+			<a href="" class="ui-btn ui-nodisc-icon ui-btn-right txt blue">저장</a>
+		</div>
+	</div>
+	<div role="main">
+		
+		<ul class="sound_list rdo_cm01">
+			<li>
+				<div class="list_radio_box">
+					<div class="div_radio">
+						<input type="radio" name="sound_check" id="sound_check01" /><label for="sound_check01">기본음</label>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="list_radio_box">
+					<div class="div_radio">
+						<input type="radio" name="sound_check" id="sound_check02" /><label for="sound_check02">프로바이오틱스</label>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="list_radio_box">
+					<div class="div_radio">
+						<input type="radio" name="sound_check" id="sound_check03" /><label for="sound_check03">신라의 달밤</label>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="list_radio_box">
+					<div class="div_radio">
+						<input type="radio" name="sound_check" id="sound_check04" /><label for="sound_check04">달아 달아 밝은 달아</label>
+					</div>
+				</div>
+			</li>
+		</ul>
+
+	</div>
+
+</div>
+<!-- //소리 -->
+
+
+
+</body>
+</html>

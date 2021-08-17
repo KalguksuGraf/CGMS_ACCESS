@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Page Title</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="../../css/jquery/jquery.mobile-1.4.5.min.css" />
+	<link rel="stylesheet" href="../../css/app/common.css" />
+	<link rel="stylesheet" href="../../css/app/style.css"/>
+	<script type="text/javascript" charset="utf-8" src="../../js/jquery/jquery.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/jquery/jquery.mobile-1.4.5.js"></script>
+	
+	<script type="text/javascript" charset="utf-8" src="../../js/app/mn/deviceReg01.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/common/jappinf.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/common/common.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/chart/d3.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/app/cm/deviceutil.js"></script>
+</head>
+<body>
+
+<!-- 추가 작업된 부분 -->	
+<!-- 기기 등록화면 -->	
+<div data-role="page" id="device_reg01" class="deviceReg">
+	<div role="main">	
+		<div class="top_header">	
+			<h1 class="ui-title small"></h1>	
+			<!-- <a href="./dashboardWide.html?fullscreenchange=On" rel="external" class="ui-btn ui-btn-icon-notext ui-btn-right ui-icon-bell ui-nodisc-icon">알림새알림이 있으면 class="on" <span class="new">새소식</span></a> -->	
+		</div>	
+		<div class="deshborad_auto_height">	
+			<div class="chart_box_top bg">	
+				<div class="device_circle">	
+					<div class="device_circle1"></div>	
+				</div>	
+			</div>	
+			<div class="device_box_bot">	
+				<p class="txt_title">CGM을 연결해주세요</p>	
+				<p class="txt_cont">CGM 연결을 위해서 휴대폰의 </br>블루투스가 "켜짐" 상태인지확인해주세요 </p>	
+				<a href="#" class="re_scan_sensor">연결하기</a>	
+<!-- 				<a href="../mn/dashboardWide.html?fullscreenchange=On" class="" data-transition="fade" rel="external">연결하기</a>	 -->
+			</div>	
+		</div>	
+	</div>	
+	<div data-role="footer" data-position="fixed" style="border-color:rgba(255,255,255,.9) !important;">	
+		<div data-role="navbar">	
+			<ul class="footer">	
+<!-- 				<li><a href="../mn/dashboard.html" data-icon="custom" class="ui-nodisc-icon" rel="external">대시보드</a></li> -->
+<!-- 				<li><a href="../tl/timeline.html" data-icon="custom" class="ui-nodisc-icon" rel="external">타임라인</a></li>	 -->
+<!-- 				<li><a href="../hr/register.html" data-icon="custom" class="ui-nodisc-icon ui-btn-icon-notext ui-icon-device" rel="external">등록</a></li>	 -->
+<!-- 				<li><a href="../rt/report.html" data-icon="custom" class="ui-nodisc-icon" rel="external">리포트</a></li>	 -->
+<!-- 				<li><a href="../bx/myBoxMain.html" data-icon="custom" class="ui-nodisc-icon" rel="external">마이페이지</a></li> -->
+				
+				<li></li>
+				<li></li>	
+				<li></li>	
+				<li></li>	
+				<li></li>		
+			</ul>	
+		</div>	
+	</div>	
+</div>	
+
+<!-- 트랜스미터 입력 -->	
+ <div data-role="page" id="enterNum" class="bg_color_white deviceReg01">	
+	
+	<div id="transmitter_info" data-role="popup" data-overlay-theme="b" class="popup_overflow">	
+		<div data-role="header">	
+			<h1></h1>	
+			<a href="../" data-rel="back" class="ui-btn ui-btn-icon-notext ui-icon-close ui-nodisc-icon ui-btn-right">닫기</a>	
+		</div>	
+		<div class="popup_info">	
+			<p class="tit">트랜스미터 일련번호는 </br>상자 하단에 있습니다.</p>	
+			<img src="../../images/app/img_sn.png">	
+			<p class="sub_txt">상자 하단의 SN 번호를 입력해주세요</p>	
+		</div>	
+	</div>	
+
+		
+	<div data-role="header" data-position="fixed" class="">	
+		<h1></h1>	
+		<a href="" data-rel="back" data-ajax="false" data-icon="back" class="ui-btn ui-btn-icon-notext ui-nodisc-icon ui-icon-black_back">뒤로</a>	
+	</div>	
+	<div role="main" class="ui-content">	
+		<div class="device_input_wrap">	
+			<div class="transmitter_box">	
+				<div class="device_desc">트랜스미터 일련번호를 입력하세요.</div>	
+				<fieldset>	
+					<legend class="hidden">트랜스미터 일련번호 입력</legend>	
+					<div class="transmitter_inp_box">	
+						<label for="device_num1" class="ui-hidden-accessible">트랜스미터 일련번호</label><input type="text" class="transId" id="device_num1" placeholder="0000000" style="text-transform:uppercase ;" />	
+					</div>	
+				</fieldset>	
+				<a href="#transmitter_info" class="text_pop_link mt1_5" data-rel="popup" data-position-to="window" data-transition="pop">트랜스미터 일련번호는 어디에 있습니까?</a>	
+			</div>	
+		</div>	
+		<div class="btn_wrap"><a href="#device_search" class="reg save ui-btn inputTransId" data-transition="fade">저장</a></div>
+	</div>	
+</div>
+<!-- //트랜스미터 입력 -->
+
+<!-- G6 테스트 -->	
+ <div data-role="page" id="enterG6Num" class="bg_color_white deviceReg01">	
+	
+	<div id="transmitter_info" data-role="popup" data-overlay-theme="b" class="popup_overflow">	
+		<div data-role="header">	
+			<h1></h1>	
+			<a href="../" data-rel="back" class="ui-btn ui-btn-icon-notext ui-icon-close ui-nodisc-icon ui-btn-right">닫기</a>	
+		</div>	
+		<div class="popup_info">	
+			<p class="tit">트랜스미터 일련번호는 </br>상자 하단에 있습니다.</p>	
+			<img src="../../images/app/img_sn.png">	
+			<p class="sub_txt">상자 하단의 SN 번호를 입력해주세요</p>	
+		</div>	
+	</div>	
+
+		
+	<div data-role="header" data-position="fixed" class="">	
+		<h1></h1>	
+		<a href="" data-rel="back" data-ajax="false" data-icon="back" class="ui-btn ui-btn-icon-notext ui-nodisc-icon ui-icon-black_back">뒤로</a>	
+	</div>	
+	<div role="main" class="ui-content">	
+		<div class="device_input_wrap">	
+			<div class="transmitter_box">	
+				<div class="device_desc">트랜스미터 일련번호를 입력하세요.</div>	
+				<fieldset>	
+					<legend class="hidden">트랜스미터 일련번호 입력</legend>	
+					<div class="transmitter_inp_box">	
+						<label for="device_num2" class="ui-hidden-accessible">트랜스미터 일련번호</label><input type="text" class="transG6Id" id="device_num2" placeholder="0000000" style="text-transform:uppercase ;" />	
+					</div>	
+				</fieldset>	
+				<a href="#transmitter_info" class="text_pop_link mt1_5" data-rel="popup" data-position-to="window" data-transition="pop">트랜스미터 일련번호는 어디에 있습니까?</a>	
+			</div>	
+		</div>	
+		<div class="btn_wrap"><a href="#device_search" class="reg save ui-btn inputTransG6Id" data-transition="fade">저장</a></div>
+	</div>	
+</div>
+<!-- //G6 테스트 -->
+
+<!-- G6 테스트  -->	
+ <div data-role="page" id="enterG6SensorNum" class="bg_color_white deviceReg01">	
+	
+	<div id="patchSensor_info" data-role="popup" data-overlay-theme="b" class="popup_overflow">	
+		<div data-role="header">	
+			<h1></h1>	
+			<a href="../" data-rel="back" class="ui-btn ui-btn-icon-notext ui-icon-close ui-nodisc-icon ui-btn-right">닫기</a>	
+		</div>	
+		<div class="popup_info">	
+			<p class="tit">트랜스미터 일련번호는 </br>부착장치 입구에 있습니다.</p>	
+			<img src="../../images/app/insertion.png">	
+			<p class="sub_txt">SN 번호를 입력해주세요</p>	
+		</div>	
+	</div>		
+
+		
+	<div data-role="header" data-position="fixed" class="">	
+		<h1></h1>	
+	</div>	
+	<div role="main" class="ui-content">	
+		<div class="device_input_wrap">	
+			<div class="transmitter_box">	
+				<div class="device_desc">센서 일련번호를 입력하세요.</div>	
+				<fieldset>	
+					<legend class="hidden">센서 일련번호 입력</legend>	
+					<div class="transmitter_inp_box">	
+						<label for="device_num3" class="ui-hidden-accessible">센서 일련번호</label><input type="text" class="transG6SensorId" id="device_num3" placeholder="0000000" style="text-transform:uppercase ;" />	
+					</div>	
+				</fieldset>	
+				<a href="#patchSensor_info" class="text_pop_link mt1_5" data-rel="popup" data-position-to="window" data-transition="pop">센서 일련번호는 어디에 있습니까?</a>	
+			</div>	
+		</div>	
+		<div class="btn_wrap"><a href="#" class="reg save ui-btn inputTransG6SensorId" data-transition="fade">저장</a></div>
+	</div>	
+</div>
+<!-- //G6 테스트 -->
+
+
+
+<!-- 기기 검색 및 완료 팝업 -->	
+<div data-role="page" id="device_search" class="deviceReg02">	
+		
+
+	<div id="search_ok" data-role="popup" data-overlay-theme="b" class="popup_overflow nobg">	
+		<div class="device_done">연결완료</div>	
+	</div>	
+
+		
+	<div role="main">	
+		<div class="device_search_box">	
+				
+			<div class="device_search_bg bg">	
+				<div class="device_sch_txt">	
+					<p>연결중</p>	
+					<p>주변에 연결 가능한 CGM을 검색중입니다.</br>연결될 때 까지 잠시만 기다려주세요</p>	
+				</div>	
+				<div class="device_circle_sch">	
+					<div><img src="../../images/app/img_device.png"></div>	
+				</div>	
+				<div class="device_search_wrap">	
+					<div class="device_sch_item">	
+						<div class="ball-scale-multiple">	
+							<div></div>	
+							<div></div>	
+							<div></div>	
+							<div></div>	
+						</div>	
+					</div>	
+				</div>	
+			</div>	
+		</div>	
+		<div class="btn_wrap nomg"><a href="deviceReg01.html" class="reg cancel ui-btn stopScanBtn">취소</a></div>
+	</div>	
+</div>	
+<!-- //기기 검색 및 완료 팝업 -->	
+</body>
+</html>

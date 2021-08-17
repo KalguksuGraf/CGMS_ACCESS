@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Page Title</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="../../css/jquery/jquery.mobile-1.4.5.min.css" />
+	<link rel="stylesheet" href="../../css/app/common.css" />
+	<link rel="stylesheet" href="../../css/app/style.css"/>
+	<script type="text/javascript" charset="utf-8" src="../../js/jquery/jquery.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/jquery/jquery.mobile-1.4.5.js"></script>
+	
+	
+	<script type="text/javascript" charset="utf-8" src="../../js/common/jappinf.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/app/cm/deviceutil.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/common/common.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/common/date.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/common/calendar.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/chart/d3.min.js"></script>
+	
+	<script type="text/javascript" charset="utf-8" src="../../js/app/ff/followpushlist.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/app/ff/followPushSnd.js"></script>
+</head>
+<body>
+
+<div data-role="page" id="push" class="bg_color_white">
+	
+	<!-- 날짜 선택 -->
+    <div data-role="panel" id="step_item_panel" class="health_panel" data-display="overlay" data-position="top">
+		<div class="calendar_day">
+			<table>
+				<thead>
+					<tr>
+					<td>일</td>
+					<td>월</td>
+					<td>화</td>
+					<td>수</td>
+					<td>목</td>
+					<td>금</td>
+					<td>토</td>
+					</tr>
+				</thead>
+				<tbody id="calendar">
+<!-- 					<tr> -->
+<!-- 						<td date-month="6" date-day="1"><a href="">1</a></td> -->
+<!-- 						<td date-month="6" date-day="2"><a href="">2</a></td> -->
+<!-- 						<td date-month="6" date-day="3"><a href="" class="current-today">3</a></td> -->
+<!-- 						<td date-month="6" date-day="4"><a href="">4</a></td> -->
+<!-- 						<td date-month="6" date-day="5"><a href="">5</a></td> -->
+<!-- 						<td date-month="6" date-day="6"><a href="">6</a></td> -->
+<!-- 						<td date-month="6" date-day="7"><a href="">7</a></td> -->
+<!-- 					</tr> -->
+<!-- 					<tr> -->
+<!-- 						<td date-month="6" date-day="8"><a href="">8</a></td> -->
+<!-- 						<td date-month="6" date-day="9"><a href="">9</a></td> -->
+<!-- 						<td date-month="6" date-day="10"><a href="">10</a></td> -->
+<!-- 						<td date-month="6" date-day="11"><a href="">11</a></td> -->
+<!-- 						<td date-month="6" date-day="12"><a href="">12</a></td> -->
+<!-- 						<td date-month="6" date-day="13"><a href="">13</a></td> -->
+<!-- 						<td date-month="6" date-day="14"><a href="">14</a></td> -->
+<!-- 					</tr> -->
+<!-- 					<tr> -->
+<!-- 						<td date-month="6" date-day="15"><a href="">15</a></td> -->
+<!-- 						<td date-month="6" date-day="16"><a href="">16</a></td> -->
+<!-- 						<td date-month="6" date-day="17"><a href="">17</a></td> -->
+<!-- 						<td date-month="6" date-day="18"><a href="">18</a></td> -->
+<!-- 						<td date-month="6" date-day="19"><a href="">19</a></td> -->
+<!-- 						<td date-month="6" date-day="20"><a href="">20</a></td> -->
+<!-- 						<td date-month="6" date-day="21"><a href="">21</a></td> -->
+<!-- 					</tr> -->
+<!-- 					<tr> -->
+<!-- 						<td date-month="6" date-day="22"><a href="">22</a></td> -->
+<!-- 						<td date-month="6" date-day="23"><a href="">23</a></td> -->
+<!-- 						<td date-month="6" date-day="24"><a href="">24</a></td> -->
+<!-- 						<td date-month="6" date-day="25"><a href="">25</a></td> -->
+<!-- 						<td date-month="6" date-day="26"><a href="">26</a></td> -->
+<!-- 						<td date-month="6" date-day="27"><a href="">27</a></td> -->
+<!-- 						<td date-month="6" date-day="28"><a href="">28</a></td> -->
+<!-- 					</tr> -->
+<!-- 					<tr> -->
+<!-- 						<td date-month="6" date-day="29"><a href="">29</a></td> -->
+<!-- 						<td date-month="6" date-day="30"><a href="">30</a></td> -->
+<!-- 						<td date-month="6" date-day="31"><a href="">31</a></td> -->
+<!-- 						<td date-month="7" date-day="1" class="hide_day">1</td> -->
+<!-- 						<td date-month="7" date-day="2" class="hide_day">2</td> -->
+<!-- 						<td date-month="7" date-day="3" class="hide_day">3</td> -->
+<!-- 						<td date-month="7" date-day="4" class="hide_day">4</td> -->
+<!-- 					</tr> -->
+				</tbody>
+			</table>
+			<div class="month_today_btn today"><a href="#" class="on_today">오늘</a> <a href="#" class="on_month"></a></div>
+		</div>
+    </div>
+    <!-- //날짜 선택 -->
+	
+	<div data-role="header" data-position="fixed" class="line push_h">
+		<div class="top_month calendar">
+			<a href="" class="btn_prev ui-btn-icon-notext">뒤로</a>
+			<h1 class="ui-title"><a href="#step_item_panel" class="month_tit" id="forMonth">Page Title</a></h1><!-- 화면 열렸을 때 class="close" 로 바꿔주세요 -->
+			<a href="" class="btn_next ui-btn-icon-notext">다음</a>
+		</div>
+	</div>
+
+	<div role="main">
+		<ul class="push_list_box">
+			<li>
+				<div class="box">
+					<ul>
+						<li>
+							<div class=""></div>
+							<p class="v open"></p>
+						</li>
+						<li>
+							<div class="txt">
+								<p class="t">해당 기간내 조회된 내역이 없습니다.<span></span></p>
+								<p class="c"></p>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</li>
+			<li>
+				<div class="box">
+					<ul>
+						<li>
+							<div class="message_view off"></div>
+							<p class="v off">읽지않음</p>
+						</li>
+						<li>
+							<div class="txt">
+								<p class="t">06월 02일 <span>17:45</span></p>
+								<p class="c">긴급저혈당으로 혈당수치가 매우 낮습니다. 저혈당 증상을 조심하세요</p>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</li>
+			<li>
+				<div class="box">
+					<ul>
+						<li>
+							<div class="message_view open"></div>
+							<p class="v open">읽음</p>
+						</li>
+						<li>
+							<div class="txt">
+								<p class="t">06월 02일 <span>17:45</span></p>
+								<p class="c">긴급저혈당으로 혈당수치가 매우 낮습니다. 저혈당 증상을 조심하세요</p>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</li>
+		</ul>
+	</div>
+	
+	<!-- 메세지등록 -->
+	<div data-role="panel" id="massage_reg" class="panel_register" data-position="bottom" data-display="overlay">
+		<div class="">
+			 <div data-role="header">
+				<a href="#" data-rel="close" class="ui-btn ui-btn-icon-notext ui-icon-pop_close ui-nodisc-icon ui-btn-left">닫기</a>
+			</div>
+			<div class="cont-inner">
+				<h1>메세지를 입력해주세요</h1>
+				<div class="write_mas">
+					<textarea id="push_cont" placeholder="(20자 내외)"></textarea>
+				</div>
+
+				<div class=""><a href="#" class="reg blue ui-btn" id="target_pushSnd">보내기</a></div>
+			  
+			</div>
+			
+		</div>
+	</div>
+	<!-- //메세지등록 -->
+
+	<!-- footer -->
+	<div data-role="footer" data-position="fixed">
+		<div data-role="navbar">
+			<ul class="footer">
+				<li><a href="../fw/followtargetdtls.html" data-icon="custom" class="ui-nodisc-icon" rel="external">대시보드</a></li>
+				<li><a href="followtimeline.html" data-icon="custom" class="ui-nodisc-icon" rel="external">타임라인</a></li>
+				<li class="mas"><a href="#massage_reg" data-icon="custom" class="" data-rel="popup" data-position-to="window" data-transition="pop"><div class="message_btn"></div></a></li>
+				<li><a href="followreport.html" data-icon="custom" class="ui-nodisc-icon" rel="external">리포트</a></li>
+				<li class="push"><a href="#" data-icon="custom" class="ui-nodisc-icon footer_on" rel="external">푸시내역</a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- /footer -->
+	
+
+</div>
+<!-- /알림 -->
+ 
+</body>
+</html>

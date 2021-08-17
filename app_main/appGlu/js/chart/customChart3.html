@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" charset="utf-8">
+    <style>
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: auto;
+  position: relative;
+}
+
+text {
+  font: 10px sans-serif;
+}
+
+.axis path {
+  display: none;
+}
+
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.group-label {
+  font-weight: bold;
+  text-anchor: end;
+}
+
+form {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+#line_chart{
+    height : 300px;
+}
+
+</style>
+</head>
+<body>
+<input type="button" value="insert new Value1" id="newBtn1" onClick="javascript:setValue(1)">
+<input type="button" value="insert new Value2" id="newBtn2" onClick="javascript:setValue(2)">
+<div id="line_chart"></div>
+<script src="../../js/chart/d3.min.js"></script>
+<script src="../../js/chart/custom/lineChart.js" charset="utf-8"></script>
+<script>
+var rawData1 = [{"day":1,"date":"20180305","column1":120, "column2":88}
+                  ,{"day":2,"date":"20180306","column1":110, "column2":78}
+                  ,{"day":3,"date":"20180307","column1":107, "column2":77}
+                  ,{"day":4,"date":"20180308","column1":99, "column2":60}
+                  ,{"day":5,"date":"20180309","column1":130, "column2":100}
+                  ,{"day":6,"date":"20180310","column1":140, "column2":90}
+                  ,{"day":7,"date":"20180311","column1":100, "column2":70}
+                 ];
+var rawData2 = [ {"day":1,"date":"20180305","column1":120, "column2":88}
+
+                  ,{"day":2,"date":"20180306","column1":110, "column2":78} 
+                  /*                 
+                  ,{"day":3,"date":"20180307","column1":107, "column2":77}
+                  ,{"day":4,"date":"20180308","column1":99, "column2":60}
+                  ,{"day":5,"date":"20180309","column1":130, "column2":89}
+                  */
+                 ];
+
+var lineChart = new LineChart({ "div":"#line_chart","range":[[120,120],[80,80]],"minMax":[40,160]});                     
+
+function setValue(gubun){
+    if(gubun==1){
+        lineChart.insertData(rawData1);
+    }else{
+        lineChart.insertData(rawData2);
+    }
+}
+
+
+</script>
+</body>
+</html>

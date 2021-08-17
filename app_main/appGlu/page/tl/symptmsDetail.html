@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Page Title</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="../../css/jquery/jquery.mobile-1.4.5.min.css" />
+	<link rel="stylesheet" href="../../css/app/common.css" />
+	<link rel="stylesheet" href="../../css/app/style.css"/>
+	<script type="text/javascript" charset="utf-8" src="../../js/jquery/jquery.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/jquery/jquery.mobile-1.4.5.js"></script>
+	
+	<!-- 스와이프 -->
+	<link rel="stylesheet" href="../../css/app/swiper.min.css" />
+	<script type="text/javascript" charset="utf-8" src="../../js/jquery/swiper.jquery.min.js"></script>
+
+	<script type="text/javascript" charset="utf-8" src="../../js/common/common.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/common/date.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/app/tl/symptmsDetail.js" defer="defer"></script>
+</head>
+<body>
+<!-- view -->
+<div data-role="page" id="symptom_view" class="bg_color_white">
+	
+	<div data-role="header" data-position="fixed" class="line">
+		<div class="header_wrap">
+			<h1>증상</h1>
+			<a onclick="backClick();" data-ajax="false" data-icon="back" class="ui-btn ui-btn-icon-notext ui-nodisc-icon ui-icon-black_back ui-btn-left" rel="external">뒤로</a>
+			<a href="" class="ui-btn ui-nodisc-icon ui-btn-right txt" id="delBtn" rel="external" style="color:#FF5E7F;">삭제</a>
+		</div>
+	</div>
+	
+	<div role="main" class="ui-content">
+		<ul data-role="listview" class="input_warp">
+			<li class="w01 ui-field-contain">
+				<label for="symptmsDeTxt" class="">날짜</label>
+				<div id="symptmsDeTxt"></div>
+			</li>
+			<li class="w01 ui-field-contain">
+				<label for="symptmsTmTxt" class="">시간</label>
+				<div id="symptmsTmTxt"></div>
+			</li>
+		</ul>
+		
+		<h2 class="title_txt mt1_5">저혈당 증상</h2>
+		<div class="select_item_wrap">
+		  <div class="swiper-container swiper2">
+			  <div class="swiper-wrapper">
+			  </div>
+		  </div>
+		</div>
+
+		<h2 class="title_txt mt1_5 symptms09TxtCls"  style="display:none;">기타 증상</h2>
+		<div class="textarea_box h70 symptms09TxtCls" style="display:none;">
+			<textarea id="symptmsCnTxt" readonly="readonly"></textarea>
+		</div>
+
+		<div class="btn_wrap"><a href="#" id="editBtn" rel="external" class="reg takeMedi ui-btn">편집하기</a></div>
+	</div>
+	
+</div>
+<!-- //view -->
+
+</body>
+</html>

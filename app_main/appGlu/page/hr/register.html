@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Page Title</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="../../css/jquery/jquery.mobile-1.4.5.min.css" />
+	<link rel="stylesheet" href="../../css/app/common.css" />
+	<link rel="stylesheet" href="../../css/app/style.css"/>
+	<script type="text/javascript" charset="utf-8" src="../../js/jquery/jquery.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/jquery/jquery.mobile-1.4.5.js"></script>
+	<!-- 스와이프 -->
+	<link rel="stylesheet" href="../../css/app/swiper.min.css" />
+	<script type="text/javascript" charset="utf-8" src="../../js/jquery/swiper.min.js"></script>
+	<style>
+	.swiper-slide, .panel_register{
+		overflow: auto;
+	}
+	.no-drag {-ms-user-select: none; -moz-user-select: -moz-none; -webkit-user-select: none; -khtml-user-select: none; user-select:none;}
+	</style>
+	<script>	
+		window.onload = function() {
+	  
+			
+		}
+	</script>
+	<!-- /스와이프 -->
+
+</head>
+<body>
+
+
+<div data-role="page" id="main" class="bg_color_white">
+
+	<!-- 기타증상 등록 -->
+	<div data-role="panel" id="input_symptom" class="panel_register" data-position="bottom" data-display="overlay">
+		<div class="">
+			 <div data-role="header">
+				<a href="" data-rel="close" class="ui-btn ui-btn-icon-notext ui-icon-pop_close ui-nodisc-icon ui-btn-left">닫기</a>
+			</div>
+			<div class="cont-inner">
+				<h2 class="title_txt">기타 증상</h2>
+				<div class="textarea_box h70">
+					<textarea></textarea>
+				</div>
+
+				<div class=""><a href="#" class="reg pink ui-btn" id="saveSymptom">등록하기</a></div> 
+			  
+			</div>
+			
+		</div>
+	</div>
+	<!-- //기타증상 등록 -->
+
+	<!-- 복약 등록 -->
+	<div data-role="panel" id="input_takeMedi" class="panel_register" data-position="bottom" data-display="overlay">
+		<input type="hidden" class="setItem" />
+		<div class="">
+			<div data-role="header">
+				<a href="" data-rel="close" class="ui-btn ui-btn-icon-notext ui-icon-pop_close ui-nodisc-icon ui-btn-left">닫기</a>
+			</div>
+			<div class="cont-inner">
+				<ul data-role="listview" class="input_warp">
+					<li class="w04 ui-field-contain">
+						<label for="takeMedi_inp01" class="required_check">약 이름</label>
+						<div><input type="text" name="" id="takeMedi_inp01" placeholder="약 이름 입력"/></div>
+					</li>
+					<li class="w04 ui-field-contain">
+						<label for="takeMedi_inp02" class="required_check">용량</label>
+						<div><input type="number" name="" id="takeMedi_inp02" placeholder="용량"/></div>
+					</li>
+					<li class="w04 ui-field-contain">
+						<label for="takeMedi_inp03" class="required_check">단위</label>
+						<div><input type="text" name="" id="takeMedi_inp03" placeholder="단위"/></div> 
+					</li>
+				</ul>
+				
+				<div>
+					<div class="" style="width:48%;float:left;">
+						<a href="#" class="reg blue ui-btn delBtn" style="background:#FF5E7F;" data-rel="popup" data-position-to="window" data-transition="pop">삭제</a>
+					</div>
+					<div class="" style="width:100% !important;float:right;">
+						<a href="#" class="reg blue ui-btn regBtn" data-rel="popup" data-position-to="window" data-transition="pop">저장</a>
+					</div>					
+				</div>
+			  
+			</div>
+			
+		</div>
+	</div>
+	<!-- //복약 등록 -->
+	
+	<!-- 시간 등록 -->
+	<div data-role="panel" id="input_timeMedi" style="height: 66%;" class="panel_register" data-position="bottom" data-display="overlay">
+		<input type="hidden" class="setItem" />
+		<div class="">
+			<div data-role="header">
+				<a href="#" id="timeCloce" data-rel="close" class="ui-btn ui-btn-icon-notext ui-icon-pop_close ui-nodisc-icon ui-btn-left">닫기</a>
+			</div>
+			<div class="cont-inner no-drag" id="" >
+				<input type="text" name="timepicker" class="" id="" readonly="readonly" placeholder="시간을 선택해 주세요." style="text-align: center;"/>
+				<input type="text" name="timepicker" class="time_element" id="timpPick" readonly="readonly" placeholder="시간을 선택해 주세요." style="text-align: center;display: none;"/>
+				<div>
+					<div class="" style="width:48%;float:left;">
+						<a href="#" class="reg blue ui-btn delBtn" style="background:#FF5E7F;" data-rel="popup" id="resetTimer" data-position-to="window" data-transition="pop">현재시각으로 리셋</a>
+					</div>
+					<div class="" style="width:48%;float:right;">
+						<a href="#" class="reg blue ui-btn regBtn" data-rel="popup" id="timeSaveBtn" data-position-to="window" data-transition="pop">선택완료</a>
+					</div>					
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //시간 등록 -->
+	
+	<div data-role="header" data-position="fixed" class="">
+		<h1>기록</h1>
+		<a href="../mn/dashboard.html" class="ui-btn ui-nodisc-icon ui-btn-left txt" rel="external">취소</a>
+		<a href="" class="ui-btn ui-nodisc-icon ui-btn-right txt" id="saveBtn">저장</a>
+	</div>
+
+	<div class="container">
+	  <!-- swiper11 상단 tabmenu -->
+	  <div class="swiper-container swiper11">
+		  <div class="swiper-wrapper">
+<!-- 				<div class="swiper-slide a1 selected"><span class="tab_user_type icon_sugar bg"></span><span>혈당</span></div> -->
+				<div class="swiper-slide a2 selected"><span class="tab_user_type icon_symptom bg"></span><span>증상</span></div>
+				<div class="swiper-slide a3"><span class="tab_user_type icon_meal bg"></span><span>식사</span></div>
+				<div class="swiper-slide a4"><span class="tab_user_type icon_takeMedi bg"></span><span>복약</span></div>
+				<div class="swiper-slide a5"><span class="tab_user_type icon_ext bg"></span><span>운동</span></div>
+				<div class="swiper-slide a6"><span class="tab_user_type icon_Blood bg"></span><span>혈압</span></div>
+				<div class="swiper-slide a7"><span class="tab_user_type icon_sleep bg"></span><span>수면</span></div>
+				<div class="swiper-slide a8"><span class="tab_user_type icon_memo bg"></span><span>메모</span></div>
+		  </div>
+	  </div>
+	  <!-- //swiper11 상단 tabmenu -->
+
+	  <!-- swiper12 tab 항목 내용 -->
+	  <div class="swiper-container swiper12">
+			<div class="swiper-wrapper">
+				 <!-- 혈당 -->				
+<!-- 				 <div class="swiper-slide" id="sugarRegi"> -->
+<!-- 					<ul data-role="listview" class="input_warp"> -->
+<!-- 						<li class="w01 ui-field-contain"> -->
+<!-- 							<label for="sugar_MEASR_DE" class="required_check">날짜</label> -->
+<!-- 							<div><input type="date" name="MEASR_DE" id="sugar_MEASR_DE" value="" /></div> -->
+<!-- 						</li> -->
+<!-- 						<li class="w01 ui-field-contain"> -->
+<!-- 							<label for="sugar_MEASR_TM" class="required_check">시간</label> -->
+<!-- 							<div><input type="time" name="MEASR_TM" id="sugar_MEASR_TM" value=""/></div> -->
+<!-- 						</li> -->
+<!-- 						<li class="w00 ui-field-contain"> -->
+<!-- 							<label for="sugar_BLOOD_SUGAR" class="required_check">혈당</label> -->
+<!-- 							<input type="number" name="BLOOD_SUGAR" id="sugar_BLOOD_SUGAR" value="0"/> -->
+<!-- 							<span>mg/dL</span> -->
+<!-- 						</li> -->
+<!-- 						<li class="w02 ui-field-contain end"> -->
+<!-- 							<label for="sugar_RMK" class="">메모</label> -->
+<!-- 							<div> -->
+<!-- 								<textarea name="RMK" id="sugar_RMK"></textarea>   -->
+<!-- 							</div> -->
+<!-- 						</li> -->
+<!-- 					</ul> -->
+<!-- 				 </div> -->
+				 <!-- //혈당 -->
+
+				 <!-- 증상 -->
+				 <div class="swiper-slide" id="symptmsRegi">
+				 	<ul data-role="listview" class="input_warp">
+						<li class="w01 ui-field-contain">
+							<label for="symptms_01" class="required_check">날짜</label>
+							<div><input type="date" name="SYMPTMS_DE" id="symptms_01" value="" /></div>
+						</li>
+						<li class="w01 ui-field-contain">
+							<label for="meal_02" class="required_check">시간</label>
+							<div><input type="time" name="SYMPTMS_TM" id="symptms_02" value="" readonly="readonly"/></div>
+						</li>
+					</ul>
+					<h2 class="title_txt mt1">저혈당 증상 (중복 선택 가능)</h2> 
+					<ul class="symptom_box">
+						<li><a href=""><span class="icon icon01"></span><span>식은땀</span></a></li>
+						<li><a href=""><span class="icon icon02"></span><span>어지럼증</span></a></li>
+						<li><a href=""><span class="icon icon03"></span><span>두통</span></a></li>
+						<li><a href=""><span class="icon icon04"></span><span>피로</span></a></li>
+						<li><a href=""><span class="icon icon05"></span><span>불안함</span></a></li>
+						<li><a href=""><span class="icon icon06"></span><span>흥분</span></a></li>
+						<li><a href=""><span class="icon icon07"></span><span>공복감</span></a></li>
+						<li><a href=""><span class="icon icon08"></span><span>두근거림</span></a></li>
+						<li><a href="#input_symptom" data-rel="popup" data-position-to="window" data-transition="pop"><span class="icon icon09"></span><span>기타증상</span></a></li>
+					</ul>
+				 </div>
+				 <!-- //증상 -->
+
+				<!-- 식사 -->
+				<div class="swiper-slide">
+					<div class="meal_scroll_box">
+						<ul data-role="listview" class="input_warp">
+							<li class="w01 ui-field-contain">
+								<label for="meal_01" class="required_check">날짜</label>
+								<div><input type="date" id="meal_01" name="MEAL_DE" value="" /></div>
+							</li>
+							<li class="w01 ui-field-contain">
+								<label for="meal_02" class="required_check">시간</label>
+								<div><input type="time" id="meal_02" name="MEAL_TM" value="" readonly="readonly"/></div>
+							</li>
+							<li class="w01 ui-field-contain">
+								<label for="meal_03" class="required_check">끼니</label>
+								<div class="setup_rdo meal_rdo select_meal_list">
+									<select name="MEAL_CLF" id="meal_03" data-native-menu="true">
+										<option value="10">아침</option>
+										<option value="20">점심</option>
+										<option value="30">저녁</option>
+										<option value="40">간식</option>
+									</select>
+								</div>
+							</li>
+						</ul>
+
+						<div class="meal_register_txt">오늘은 무엇을 드셨나요? </br>사진을 추가해 식사를 기록하세요.</div>
+
+						<!-- 섭취 음식 리스트 -->
+<!-- 						<ul class="box_meal_list"> -->
+<!-- 						</ul> -->
+						<!-- 섭취 음식 리스트 -->
+						
+						<div class="meal_size meal_pic_img" style="display:none;"></div>
+						
+						<ul data-role="listview" class="input_warp" style="display:none;margin-bottom:100px;">
+							<li class="w03 ui-field-contain end">
+							<div class="add_meal"><a href="#" id="mealDtlsAddBtn">추가<em>+</em></a></div>
+								<div class="meal_food_list">
+									<ul data-role="listview" data-inset="true" id="mealDtlsList">
+									</ul>
+								</div>
+							</li>
+						</ul>
+
+						<div class="btn_wrap"><a href="#" id="foodLensBtn" class="reg meal_cam ui-btn">사진찍기</a></div>
+					</div>
+				 </div>
+				 <!-- //식사 -->
+
+				 <!-- 복약 -->
+				 <div class="swiper-slide">
+					<ul data-role="listview" class="input_warp">
+						<li class="w01 ui-field-contain">
+							<label for="takeMedi_01" class="required_check">날짜</label>
+							<div><input type="date" id="takeMedi_01" name="DRUG_TAKNG_DE" value="" /></div>
+						</li>
+						<li class="w01 ui-field-contain">
+							<label for="takeMedi_02" class="required_check">시간</label>
+							<div><input type="time" id="takeMedi_02" name="DRUG_TAKNG_TM" value="" readonly="readonly"/></div>
+						</li>
+					</ul>
+					<!-- 리스트항목이 없을 때 --
+					<div class="nodate">등록된 약이 없습니다. </br>약을 등록해주세요</div>
+					<!-- //리스트항목이 없을 때 -->
+
+					<!-- 등록한 복약 리스트 -->
+					<!-- <ul class="item_reg_list set_chack_box">
+						<li class="ui-btn-icon-right">
+							<div class="list_check_box">
+								<div class="div_check">
+									<label><input name="" type="checkbox"></label>
+								</div>
+							</div>
+							<a class="list_aArea medi_list ui-btn-icon-right" href="">
+								<div>
+									<span class="bo_tit">
+										<h3>인슐린</h3>
+										<p>20mg</p>
+									</span>
+								</div>
+							</a>  
+						</li>  
+					</ul>--> 
+					<!-- //등록한 복약 리스트 -->
+
+					<div class="btn_wrap"><a href="#input_takeMedi" class="reg takeMedi ui-btn" data-rel="popup" data-position-to="window" data-transition="pop">약 등록하기</a></div>
+
+
+				 </div>
+				 <!-- //복약 -->
+
+				 <!-- 운동 -->
+				 <div class="swiper-slide">
+					<ul data-role="listview" class="input_warp">
+						<input type="hidden" name="EXCS_CD" />
+						<li class="w01 ui-field-contain">
+							<label for="excsDe" class="required_check">날짜</label>
+							<div><input type="date" name="EXCS_DE" id="excsDe" value="" /></div>
+						</li>
+						<li class="w01 ui-field-contain">
+							<label for="excsBgnTm" class="required_check">시간</label>
+							<div><input type="time" name="EXCS_BGN_TM" id="excsBgnTm" value="" readonly="readonly"/></div>
+						</li>
+						<li class="w01 ui-field-contain">
+							<label for="excsNm" class="required_check">운동명</label>
+							<div><input type="text" name="EXCS_NM" id="excsNm" readonly /></div>
+						</li>
+						<li class="w01 ui-field-contain">
+							<label for="excsTm" class="required_check">운동시간(분)</label>
+							<div><input type="number" name="EXCS_TM" id="excsTm" /></div>
+						</li>
+					</ul>
+
+					<div class="btn_wrap" id="excs_search"><a href="#" class="reg exe ui-btn" data-transition="fade" id="excsSchBtn">운동검색</a></div>
+				 </div>
+				 <!-- //운동 -->
+
+				 <!-- 혈압 -->
+				 <div class="swiper-slide" id="pressRegi">
+					<ul data-role="listview" class="input_warp">
+						<li class="w01 ui-field-contain">
+							<label for="press_MEASR_DE" class="required_check">날짜</label>
+							<div><input type="date" name="MEASR_DE" id="press_MEASR_DE" value="" /></div>
+						</li>
+						<li class="w01 ui-field-contain">
+							<label for="press_MEASR_TM" class="required_check">시간</label>
+							<div><input type="time" name="MEASR_TM" id="press_MEASR_TM" value="" readonly="readonly"/></div>
+						</li>
+						<li class="w01 ui-field-contain">
+							<label for="press_BLOOD_PRESS_MAX" class="required_check">수축기(mmHg)</label>
+							<input type="number" id="press_BLOOD_PRESS_MAX" name="BLOOD_PRESS_MAX" value="0"/>
+						</li>
+						<li class="w01 ui-field-contain">
+							<label for="press_BLOOD_PRESS_MIN" class="required_check">이완기(mmHg)</label>
+							<input type="number" id="press_BLOOD_PRESS_MIN" name="BLOOD_PRESS_MIN" value="0"/>  
+						</li>
+						<li class="w01 ui-field-contain">
+							<label for="press_PULSE" class="required_check">맥박</label>
+							<input type="number" id="press_PULSE" name="PULSE" value="0"/>  
+						</li>
+						<li class="w02 ui-field-contain end">
+							<label for="" class="required_check">메모</label>
+							<div>
+								<textarea name="RMK" id="press_RMK"></textarea> 
+							</div>
+						</li>
+					</ul>
+				 </div>
+				 <!-- //혈압 -->
+
+				 <!-- 수면 -->
+				 <div class="swiper-slide" id="sleepRegi">
+					<ul data-role="listview" class="input_warp">
+						<li class="w01 ui-field-contain">
+							<label for="sleep_SLEEP_DE" class="required_check">기상일자</label>
+							<div><input type="date" name="SLEEP_DE" id="sleep_SLEEP_DE" value="" /></div>
+						</li>
+						<li class="w01 ui-field-contain">
+							<label for="sleep_SLEEP_END_TM" class="required_check">기상시간</label>
+							<div><input type="time" name="SLEEP_END_TM" id="sleep_SLEEP_END_TM" value="" readonly="readonly"/></div> 
+						</li>
+						<li class="w01 ui-field-contain">
+							<label for="sleep_SLEEP_TM" class="required_check">수면시간(시)</label>
+							<div><input type="number" name="SLEEP_TM" id="sleep_SLEEP_TM" /></div>
+						</li>
+						<li class="w05 ui-field-contain end">
+							<label for="" class="required_check">수면상태평가</label>
+							<div class="ratyli" id="SLEEP_EVL">
+								<span class="rate">★</span>
+								<span class="rate">★</span>
+								<span class="rate">★</span>
+								<span class="rate">★</span>
+								<span class="rate">★</span>
+							</div>
+						</li>
+					</ul>
+				 </div>
+				 <!-- //수면 -->
+
+				 <!-- 메모 -->
+				 <div class="swiper-slide" id="memoRegi">
+					<ul data-role="listview" class="input_warp">
+						<li class="w01 ui-field-contain">
+							<label for="memo_FREE_MEMO_DE" class="">날짜</label>
+							<div><input type="date" name="FREE_MEMO_DE" id="memo_FREE_MEMO_DE" value="" /></div>
+						</li>
+						<li class="w01 ui-field-contain">
+							<label for="memo_FREE_MEMO_TM" class="">시간</label>
+							<div><input type="time" name="FREE_MEMO_TM" id="memo_FREE_MEMO_TM" value="" readonly="readonly"/></div>
+						</li>
+						<li class="w02 ui-field-contain end">
+							<label for="memo_FREE_MEMO_CN" class="">메모</label>
+							<div>
+								<textarea name="FREE_MEMO_CN" id="memo_FREE_MEMO_CN"></textarea> 
+							</div>
+						</li>
+					</ul>
+
+				 </div>
+				 <!-- //메모 -->
+			</div>
+	  </div>
+	  <!-- //swiper12 tab 항목 내용 -->
+	  
+	</div>
+	
+	
+</div>
+
+<!-- 운동 검색 -->
+<div data-role="page" id="exe_search" class="bg_color_white">
+	
+	<div data-role="header" data-position="fixed" class="line">
+		<h1>운동 검색</h1>
+		<a href="" data-rel="back" data-ajax="false" data-icon="back" class="ui-btn ui-btn-icon-notext ui-nodisc-icon ui-icon-black_back">뒤로</a>
+	</div>
+
+	<div role="main" class="">
+		<!--검색-->
+		<div class="exe_search_wrap">
+			<input id="excsSchTxt" placeholder="운동 이름을 검색해주세요." data-type="search">
+		</div>
+		<!--//검색-->
+		
+		<!-- 운동 즐겨찾기 및 최근검색목록 --
+		<div class="bookmark">
+			<ul data-role="listview" data-inset="true">
+				<li class="search_on"><a href="#exer_edit">수중배구</a><a href="#" class="searchfav_on">즐겨찾기</a></li>
+				<li><a href="#">배드민턴</a><a href="#" class="searchfav_off">즐겨찾기</a></li>
+				<li><a href="#">배구</a><a href="#" class="searchfav_on">즐겨찾기</a></li>
+			</ul>
+		</div>
+		<div class="lately_list">
+			<ul data-role="listview" data-inset="true">
+				<li data-role="list-divider" class="lately_search">최근검색</li>
+				<li class="search_on"><a href="#exer_edit">수중배구</a><a href="#" class="lately_list_del">삭제</a></li>
+				<li><a href="#">배드민턴</a><a href="#" class="lately_list_del">삭제</a></li>
+			</ul>
+		</div>
+		<!-- //운동 즐겨찾기 및 최근검색목록 -->
+		
+		<!--검색리스트-->
+		<div class="search_list">
+			<ul data-role="listview" data-inset="true" id="excsSearchList">
+			</ul>
+		</div>
+		<!--//검색리스트-->
+	</div>
+
+</div>
+<!-- //운동 검색 -->
+
+<!--식단_음식검색-->
+<div data-role="page" id="meal_edit1" class="bg_color_white">
+	
+	<div data-role="header" data-position="fixed" class="line">
+		<div class="header_wrap">
+			<h1>추가</h1>
+			<a href="../" data-rel="back" class="ui-btn ui-nodisc-icon ui-btn-left txt">취소</a>
+		</div>
+	</div>
+
+	<div data-role="main">
+		<!--음식검색-->
+
+		<ul data-role="listview" class="health_edit search_box">
+			<li>
+				<input id="foodSchTxt" data-type="search" placeholder="음식이름을 검색해보세요." />
+			</li>
+		</ul>
+		<!--//음식검색-->
+
+		<!-- 운동 즐겨찾기 및 최근검색목록 --
+		<div class="bookmark">
+			<ul data-role="listview" data-inset="true">
+				<li><a href="#exer_edit">잡곡밥</a><a href="#" class="searchfav_on">즐겨찾기</a></li>
+				<li><a href="#">현미밥</a><a href="#" class="searchfav_off">즐겨찾기</a></li>
+				<li><a href="#">된장찌개</a><a href="#" class="searchfav_on">즐겨찾기</a></li>
+			</ul>
+		</div>
+		<div class="lately_list">
+			<ul data-role="listview" data-inset="true">
+				<li data-role="list-divider" class="lately_search">최근검색</li>
+				<li><a href="#">현미밥</a><a href="#" class="lately_list_del">삭제</a></li>
+				<li><a href="#">된장찌개</a><a href="#" class="lately_list_del">삭제</a></li>
+			</ul>
+		</div>
+		<!-- //운동 즐겨찾기 및 최근검색목록 -->
+
+		<h2 class="tit_list">검색결과</h2>
+		<!--검색리스트-->
+		<div class="search_list">
+			<ul data-role="listview" data-inset="true" id="foodSearchList">
+				<li><div class="health_nodata">검색결과가 없습니다.</div></li>
+			</ul>
+		</div>
+		<!--//검색리스트-->
+		
+	</div>
+</div>
+<!--//식단_음식검색-->
+
+<!--식단_음식용량선택1-->
+<div data-role="page" id="meal_edit2_1" class="bg_color_white">
+	<div data-role="header" data-position="fixed" class="line">
+		<div class="header_wrap">
+			<h1>추가</h1>
+			<a href="" onclick="$.mobile.changePage('#main');" data-ajax="false" data-icon="back" class="ui-btn ui-btn-icon-notext ui-nodisc-icon ui-icon-black_back ui-btn-left">뒤로</a>
+		</div>
+	</div>
+
+	<div data-role="main" class="ui-content">
+		<div class="meal_subtit2">
+			<h2 class="foodNmTxt"></h2>
+			<a href="#meal_edit2_2" data-transition="flip">직접 입력하기</a>
+		</div>
+		<ul data-role="listview" class="health_edit" id="selFoodList">
+			<li>
+				<a href="#" onclick="addFoodDtls(0.5);" data-transition="slide">
+					<h1></h1>
+					<p class="fnt_sm"></p>
+					<p class="list_aside"></p>
+				</a>
+			</li>
+			<li>
+				<a href="#" onclick="addFoodDtls(1);" data-transition="slide">
+					<h1></h1>
+					<p class="fnt_sm"></p>
+					<p class="list_aside"></p>
+				</a>
+			</li>
+			<li>
+				<a href="#" onclick="addFoodDtls(1.5);" data-transition="slide">
+					<h1></h1>
+					<p class="fnt_sm"></p>
+					<p class="list_aside"></p>
+				</a>
+			</li>
+			<li>
+				<a href="#" onclick="addFoodDtls(2);"data-transition="slide">
+					<h1></h1>
+					<p class="fnt_sm"></p>
+					<p class="list_aside"></p>
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>
+<!--//식단_음식용량선택1-->
+
+<!--식단_음식용량선택2-->
+<div data-role="page" id="meal_edit2_2" class="bg_color_white">
+	
+	<div data-role="header" data-position="fixed" class="line">
+		<div class="header_wrap">
+			<h1>추가</h1>
+			<a href="" onclick="$.mobile.changePage('#main');" data-ajax="false" data-icon="back" class="ui-btn ui-btn-icon-notext ui-nodisc-icon ui-icon-black_back ui-btn-left">뒤로</a>
+			<a href="" onclick="addFoodDtlsManu();" class="ui-btn ui-nodisc-icon ui-btn-right txt">저장</a>
+		</div>
+	</div>
+
+	<div data-role="main" class="ui-content">
+		<div class="meal_subtit2">
+			<h2>현미밥</h2>
+			<a href="#meal_edit2_1" data-transition="flip">섭취량 선택하기</a>
+		</div>
+		<div class="health_box">
+			<div class="desc">섭취량(<span class="unitNm">인분</span>) 또는 식재료량(g) 중 한 항목을 선택해 입력하시면 자동 계산됩니다.</div>
+		</div>
+		<ul data-role="listview" class="health_edit t02">
+			<li class="ui-field-contain">
+				<label for="meal_edit03">섭취량(<span class="unitNm">인분</span>)</label>
+				<input type="number" id="meal_edit03" placeholder="입력해주세요" />
+			</li>
+			<li class="ui-field-contain">
+				<label for="meal_edit04">식재료량(g)</label>
+				<input type="number" id="meal_edit04" placeholder="입력해주세요" />
+			</li>
+			<li class="ui-field-contain">
+				<label for="meal_edit05">칼로리(kcal)</label>
+				<input type="number" id="meal_edit05" disabled="disabled" placeholder="(자동계산 됩니다.)" class="input_desc" />
+			</li>
+		</ul>
+	</div>
+</div>
+<!--//식단_음식용량선택2-->
+
+<!-- 스크립트 import -->
+<script type="text/javascript" charset="utf-8" src="../../js/common/common.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/common/date.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/common/jappinf.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/app/hr/register.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/jquery/timepicki.js"></script>
+</body>
+</html>

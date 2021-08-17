@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Page Title</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="../../css/jquery/jquery.mobile-1.4.5.min.css" />
+	<link rel="stylesheet" href="../../css/app/common.css" />
+	<link rel="stylesheet" href="../../css/app/style.css"/>
+	<style type="text/css">
+	.user_list_box_s{
+		background: white !important;
+	}
+	.g_tab li:nth-child(2) .ui-btn.tab_on p {
+    color: #FE9504 !important;
+	}
+	.g_tab li:nth-child(3) .ui-btn.tab_on p {
+    color: #DC0000 !important;
+	}
+	.ui-listview>li h1 {
+	margin: 0;
+	}
+	</style>
+	<script type="text/javascript" charset="utf-8" src="../../js/jquery/jquery.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/jquery/jquery.mobile-1.4.5.js"></script>
+	
+	<script type="text/javascript" charset="utf-8" src="../../js/chart/d3.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/common/jappinf.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/app/cm/deviceutil.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/common/common.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/common/date.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/chart/d3.min.js"></script>
+	
+	<script type="text/javascript" charset="utf-8" src="../../js/app/fw/followmain.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/chart/custom/followSttusChart.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/chart/custom/followDtlsChart.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/chart/custom/followPopChart.js"></script>
+	
+	
+</head>
+<body>
+
+
+
+<!-- 팔로우 -->
+<div data-role="page" id="follow">
+	<div data-role="popup" id="logoutConfirmPopup" data-overlay-theme="b" class="alert01" style="min-width:280px;max-width:400px;">    
+		<div role="main">	
+			<h3 class="confirmMsg">로그아웃 하시겠습니까?</h3>
+			<ul class="btn_box01">
+				<li><a class="ui-btn ui-btn-inline fnred" href="#" data-rel="back">아니오</a></li>
+				<li><a class="ui-btn ui-btn-inline" href="#" onclick="adminLogout();" data-transition="fade">예</a></li>
+			</ul>
+		</div>	
+	</div>
+
+	<!-- 팝업 chart -->
+	<div id="pop_chart" data-role="popup" data-overlay-theme="b" class="popup_overflow">
+		<div data-role="header">
+			<h1></h1>
+			<a href="../" data-rel="back" class="ui-btn ui-btn-icon-notext ui-icon-close ui-nodisc-icon ui-btn-right">닫기</a>
+			
+			<div>
+				<div class="swiper-container swiper33">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<ul class="popup_value">
+								<li>최고 혈당 수치</li>
+								<li style="padding-right:0;"></li>
+								<li></li>
+							</ul>
+							<div class="popup_chart_area">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //팝업 chart -->
+
+
+		
+	<div data-role="header" data-position="fixed" class="top_search_h">
+	  <div class="top_align_box">
+		<div class="top_search_box"><input type="search" readonly="readonly" id="searchBar" placeholder="대상자 검색"></div><!-- input 선택했을 때 id="follow_search" 검색페이지로 이동 -->
+		<a href="#" onclick="btnLogoutConfirm();" class="btn_logout">logout</a>
+	   </div>
+	</div>
+
+	<div role="main">
+		<ul class="g_tab">
+			<li>
+				<a href="#" class="ui-btn dounut" id="LOW_EMER">
+					<div class="g chart" id="emerChart"></div>
+					<p>긴급저혈당</p>
+				</a>
+			</li>
+			<li>
+				<a href="#" class="ui-btn dounut" id="HIGH">
+					<div class="g chart" id="highChart"></div>
+					<p>고혈당</p>
+				</a>
+			</li>
+			<li>
+				<a href="#" class="ui-btn dounut" id="DATA_DISC">
+					<div class="g chart" id="dataDiscChart"></div>
+					<p>데이터 끊김</p>
+				</a>
+			</li>
+		</ul>
+		
+		<!-- 전체 리스트 -->
+		<div id="allCgmList" class="tab_user_contBox">
+			<div class="sub_header">
+<!-- 				<h1 id="tot_target">전체 24명</h1> -->
+				<ul data-role="listview" class="list_cm3">
+					<li id="viewMode">
+					  <div>
+						<h1 id="tot_target">전체 24명</h1>
+						    <div class="setup_rdo slider_list">
+								<select id="viewselect" name="viewer" data-role="slider" onchange="changeViewMode(this)">
+									<option id="view_default" value="off">Off</option>
+									<option id="view_detail" value="on">On</option>
+								</select>
+							</div>
+					 </div>
+					</li>
+				</ul>
+				<!-- <a href="" data-rel="back" data-ajax="false" data-icon="back" class="ui-btn ui-btn-icon-notext ui-nodisc-icon ui-icon-black_back ui-btn-left sec">뒤로</a> -->
+			</div>
+			<div class="user_list_box_s">
+				<ul class="user_list_box_ul">
+<!-- 					<li> -->
+<!-- 						<button class="user ui-btn"> -->
+<!-- 							<ul> -->
+<!-- 								<li> -->
+<!-- 									<div class="meal_pic_div meal_pic_size" style="background-image:url('../../images/app/noprofile@2x.png')"></div> -->
+<!-- 									<p class="n">너무낮아</p> -->
+<!-- 								</li> -->
+<!-- 								<li> -->
+<!-- 									<div class=""> -->
+<!-- 										<p class="t"><em class="bullet_type b_solid g_1">긴급저혈당</em></p> -->
+<!-- 										<p class="n"><span class="target cgmvalue">40</span>&nbsp; mg/dL</p> -->
+<!-- 										<p class="cgmtime">7월 17일 11:20</p> -->
+<!-- 									</div> -->
+<!-- 								</li> -->
+<!-- 								<li> -->
+<!-- 								<div class="">		 -->
+<!-- 								</div> -->
+<!-- 								</li> -->
+<!-- 							</ul> -->
+<!-- 						</button> -->
+<!-- 					</li> -->
+<!-- 					<li> -->
+<!-- 						<button class="user ui-btn"> -->
+<!-- 							<ul> -->
+<!-- 								<li> -->
+<!-- 									<div class="meal_pic_div meal_pic_size" style="background-image:url('../../images/app/noprofile@2x.png')"></div> -->
+<!-- 									<p class="">너무낮ekek</p> -->
+<!-- 								</li> -->
+<!-- 								<li> -->
+<!-- 									<div class=""> -->
+<!-- 										<p class="t"><em class="bullet_type b_solid g_1">긴급저혈당</em></p> -->
+<!-- 										<p class="n"><span class="target cgmvalue">--</span>&nbsp; mg/dL</p> -->
+<!-- 										<p class="cgmtime">7월 17일 09:20 최종측정</p> -->
+<!-- 									</div> -->
+<!-- 								</li> -->
+<!-- 								<li> -->
+<!-- 								<div class="">		 -->
+<!-- 								</div> -->
+<!-- 								</li> -->
+<!-- 							</ul> -->
+<!-- 						</button> -->
+<!-- 					</li> -->
+<!-- 					<li> -->
+<!-- 						<button class="user ui-btn"> -->
+<!-- 							<ul> -->
+<!-- 								<li> -->
+<!-- 									<div class="meal_pic_div meal_pic_size" style="background-image:url('../../images/app/noprofile@2x.png')"></div> -->
+<!-- 								</li> -->
+<!-- 								<li> -->
+<!-- 									<div class=""> -->
+<!-- 										<p class="t"><em class="bullet_type b_solid g_2">데이터 끊김</em></p> -->
+<!-- 										<p class="n"><span class="target cgmvalue">--</span>&nbsp; mg/dL</p> -->
+<!-- 										<p class="cgmtime">7월 17일 09:20 최종측정</p> -->
+<!-- 									</div> -->
+<!-- 								</li> -->
+<!-- 								<li> -->
+<!-- 								<div class="">		 -->
+<!-- 								</div> -->
+<!-- 								</li> -->
+<!-- 							</ul> -->
+<!-- 						</button> -->
+<!-- 					</li> -->
+<!-- 					<li> -->
+<!-- 						<button class="user ui-btn"> -->
+<!-- 							<ul> -->
+<!-- 								<li> -->
+<!-- 									<div class="meal_pic_div meal_pic_size" style="background-image:url('../../images/app/noprofile@2x.png')"></div> -->
+<!-- 								</li> -->
+<!-- 								<li> -->
+<!-- 									<div class=""> -->
+<!-- 										<p class="t"><em class="bullet_type b_solid g_3">센서중단</em></p> -->
+<!-- 										<p class="n"><span class="target cgmvalue">--</span>&nbsp; mg/dL</p> -->
+<!-- 										<p class="cgmtime"></p> -->
+<!-- 									</div> -->
+<!-- 								</li> -->
+<!-- 								<li> -->
+<!-- 								<div class="">		 -->
+<!-- 								</div> -->
+<!-- 								</li> -->
+<!-- 							</ul> -->
+<!-- 						</button> -->
+<!-- 					</li> -->
+					<li>
+						<button class="user ui-btn">
+							<ul>
+								<li>
+									<div class="meal_pic_div meal_pic_size" style="background-image:url('../../images/app/noprofile@2x.png')"></div>
+								</li>
+								<li>
+									<div class="txt">
+										<p class="n">일육오</p>
+										<p class="s"><span>여성</span> 1990. 01. 23</p>
+										<p class="t">현재상태: <em class="bullet_type b_solid g_1">긴급저혈당</em></p>
+									</div>
+								</li>
+								<li>
+									<a href="#pop_chart" data-transition="pop" data-rel="popup" data-position-to="window">
+										<div class="thum_graph"></div>
+									</a>
+								</li>
+							</ul>
+						</button>
+					</li>
+					<li>
+						<button class="user ui-btn">
+							<ul>
+								<li>
+									<div class="meal_pic_div meal_pic_size" style="background-image:url('../../images/app/noprofile@2x.png')"></div>
+								</li>
+								<li>
+									<div class="txt">
+										<p class="n">일육오</p>
+										<p class="s"><span>여성</span> 1990. 01. 23</p>
+										<p class="t">현재상태: <em class="bullet_type b_solid g_1">긴급저혈당</em></p>
+									</div>
+								</li>
+								<li>
+									<a href="#pop_chart" data-transition="pop" data-rel="popup" data-position-to="window">
+										<div class="thum_graph"></div>
+									</a>
+								</li>
+							</ul>
+						</button>
+					</li>
+					<li>
+						<button class="user ui-btn">
+							<ul>
+								<li>
+									<div class="meal_pic_div meal_pic_size" style="background-image:url('../../images/app/noprofile@2x.png')"></div>
+								</li>
+								<li>
+									<div class="txt">
+										<p class="n">일육오</p>
+										<p class="s"><span>여성</span> 1990. 01. 23</p>
+										<p class="t">현재상태: <em class="bullet_type b_solid g_1">긴급저혈당</em></p>
+									</div>
+								</li>
+								<li>
+									<a href="#pop_chart" data-transition="pop" data-rel="popup" data-position-to="window">
+										<div class="thum_graph"></div>
+									</a>
+								</li>
+							</ul>
+						</button>
+					</li>
+					<li>
+						<button class="user ui-btn">
+							<ul>
+								<li>
+									<div class="meal_pic_div meal_pic_size" style="background-image:url('../../images/app/noprofile@2x.png')"></div>
+								</li>
+								<li>
+									<div class="txt">
+										<p class="n">이오육</p>
+										<p class="t"><em class="bullet_type b_solid g_1">긴급저혈당</em></p>
+										<p class="s">40 mg/dL</p>
+									</div>
+								</li>
+								<li>
+									
+								</li>
+							</ul>
+						</button>
+					</li>
+					<li>
+						<button class="user ui-btn">
+							<ul>
+								<li>
+									<div class="meal_pic_div meal_pic_size" style="background-image:url('../../images/app/noprofile@2x.png')"></div>
+								</li>
+								<li>
+									<div class="txt">
+										<p class="n">이오육</p>
+										<p class="t"><em class="bullet_type b_solid g_2">데이터 끊김</em></p>
+										<p class="s">40 mg/dL</p>
+									</div>
+								</li>
+								<li>
+									
+								</li>
+							</ul>
+						</button>
+					</li>
+					<li>
+						<button class="user ui-btn">
+							<ul>
+								<li>
+									<div class="meal_pic_div meal_pic_size" style="background-image:url('../../images/app/noprofile@2x.png')"></div>
+								</li>
+								<li>
+									<div class="txt">
+										<p class="n">삼사오</p>
+										<p class="t"><em class="bullet_type b_solid g_3">센서중단</em></p>
+										<p class="s">40 mg/dL</p>
+									</div>
+								</li>
+								<li>
+									
+								</li>
+							</ul>
+						</button>
+					</li>
+					<li>
+						<button class="user ui-btn">
+							<ul>
+								<li>
+									<div class="meal_pic_div meal_pic_size" style="background-image:url('../../images/app/noprofile@2x.png')"></div>
+								</li>
+								<li>
+									<div class="txt">
+										<p class="n">사오육</p>
+										<p class="t"><em class="bullet_type b_line">정상</em></p>
+										<p class="s">40 mg/dL</p>
+									</div>
+								</li>
+								<li>
+									
+								</li>
+							</ul>
+						</button>
+					</li>
+					<li>
+						<button class="user ui-btn">
+							<ul>
+								<li>
+									<div class="meal_pic_div meal_pic_size" style="background-image:url('../../images/app/noprofile@2x.png')"></div>
+								</li>
+								<li>
+									<div class="txt">
+										<p class="n">육사발</p>
+										<p class="t"><em class="bullet_type b_solid g_3">고혈당</em></p>
+										<p class="s">40 mg/dL</p>
+									</div>
+								</li>
+								<li>
+									
+								</li>
+							</ul>
+						</button>
+					</li>
+					<li>
+						<button class="user ui-btn">
+							<ul>
+								<li>
+									<div class="meal_pic_div meal_pic_size" style="background-image:url('../../images/app/noprofile@2x.png')"></div>
+								</li>
+								<li>
+									<div class="txt">
+										<p class="n">칠파오</p>
+										<p class="t"><em class="bullet_type b_line b_2">저혈당</em></p>
+										<p class="s">40 mg/dL</p>
+									</div>
+								</li>
+								<li>
+									
+								</li>
+							</ul>
+						</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- 긴급저혈당 -->
+		<div id="emLowList" class="tab_user_contBox" style="display:none">
+			<div class="sub_header">
+				<a href="#" class="ui-btn ui-btn-icon-notext ui-nodisc-icon ui-icon-black_back ui-btn-left sec">뒤로</a>
+			</div>
+			<div class="user_list_box_s">
+				<ul class="user_list_box_ul">
+					<li>
+						<button class="user ui-btn">
+							<ul>
+								<li>
+									<div class="meal_pic_div meal_pic_size" style="background-image:url('../../images/app/noprofile@2x.png')"></div>
+								</li>
+								<li>
+									<div class="txt">
+										<p class="n">일육오</p>
+										<p class="s"><span>여성</span> 1990. 01. 23</p>
+										<p class="t">현재상태: <em class="bullet_type b_solid g_1">긴급저혈당</em></p>
+									</div>
+								</li>
+								<li>
+									<a href="#pop_chart" data-transition="pop" data-rel="popup" data-position-to="window">
+										<div class="thum_graph">썸네일그래프</div>
+									</a>
+								</li>
+							</ul>
+						</button>
+					</li>
+					<li>
+						<button class="user ui-btn">
+							<ul>
+								<li>
+									<div class="meal_pic_div meal_pic_size" style="background-image:url('../../images/app/noprofile@2x.png')"></div>
+								</li>
+								<li>
+									<div class="txt">
+										<p class="n">일육오</p>
+										<p class="s"><span>여성</span> 1990. 01. 23</p>
+										<p class="t">현재상태: <em class="bullet_type b_solid g_1">긴급저혈당</em></p>
+									</div>
+								</li>
+								<li>
+									<a href="#pop_chart" data-transition="pop" data-rel="popup" data-position-to="window">
+										<div class="thum_graph">썸네일그래프</div>
+									</a>
+								</li>
+							</ul>
+						</button>
+					</li>
+					<li>
+						<button class="user ui-btn">
+							<ul>
+								<li>
+									<div class="meal_pic_div meal_pic_size" style="background-image:url('../../images/app/noprofile@2x.png')"></div>
+								</li>
+								<li>
+									<div class="txt">
+										<p class="n">일육오</p>
+										<p class="s"><span>여성</span> 1990. 01. 23</p>
+										<p class="t">현재상태: <em class="bullet_type b_solid g_1">긴급저혈당</em></p>
+									</div>
+								</li>
+								<li>
+									<a href="#pop_chart" data-transition="pop" data-rel="popup" data-position-to="window">
+										<div class="thum_graph">썸네일그래프</div>
+									</a>
+								</li>
+							</ul>
+						</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- 고혈당 -->
+		<div id="highCgmList" class="tab_user_contBox" style="display:none">
+			<div class="sub_header">
+				<a href="#" class="ui-btn ui-btn-icon-notext ui-nodisc-icon ui-icon-black_back ui-btn-left sec">뒤로</a>
+			</div>
+			<div class="user_list_box_s">
+				<ul class="user_list_box_ul">
+					<li>
+						<button class="user ui-btn">
+							<ul>
+								<li>
+									<div class="meal_pic_div meal_pic_size" style="background-image:url('../../images/app/noprofile@2x.png')"></div>
+								</li>
+								<li>
+									<div class="txt">
+										<p class="n">이오육</p>
+										<p class="s"><span>남성</span> 1990. 01. 23</p>
+										<p class="t">현재상태: <em class="bullet_type b_solid g_3">고혈당</em></p>
+									</div>
+								</li>
+								<li>
+									<a href="#pop_chart" data-transition="pop" data-rel="popup" data-position-to="window">
+										<div class="thum_graph">썸네일그래프</div>
+									</a>
+								</li>
+							</ul>
+						</button>
+					</li>
+					<li>
+						<button class="user ui-btn">
+							<ul>
+								<li>
+									<div class="meal_pic_div meal_pic_size" style="background-image:url('../../images/app/noprofile@2x.png')"></div>
+								</li>
+								<li>
+									<div class="txt">
+										<p class="n">이오육</p>
+										<p class="s"><span>남성</span> 1990. 01. 23</p>
+										<p class="t">현재상태: <em class="bullet_type b_solid g_3">고혈당</em></p>
+									</div>
+								</li>
+								<li>
+									<a href="#pop_chart" data-transition="pop" data-rel="popup" data-position-to="window">
+										<div class="thum_graph">썸네일그래프</div>
+									</a>
+								</li>
+							</ul>
+						</button>
+					</li>
+					<li>
+						<button class="user ui-btn">
+							<ul>
+								<li>
+									<div class="meal_pic_div meal_pic_size" style="background-image:url('../../images/app/noprofile@2x.png')"></div>
+								</li>
+								<li>
+									<div class="txt">
+										<p class="n">이오육</p>
+										<p class="s"><span>남성</span> 1990. 01. 23</p>
+										<p class="t">현재상태: <em class="bullet_type b_solid g_3">고혈당</em></p>
+									</div>
+								</li>
+								<li>
+									<a href="#pop_chart" data-transition="pop" data-rel="popup" data-position-to="window">
+										<div class="thum_graph">썸네일그래프</div>
+									</a>
+								</li>
+							</ul>
+						</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- 데이터 끊김 -->
+		<div id="cgmDisconnect" class="tab_user_contBox" style="display:none">
+			<div class="sub_header">
+				<a href="#" data-ajax="false" data-icon="back" class="ui-btn ui-btn-icon-notext ui-nodisc-icon ui-icon-black_back ui-btn-left sec">뒤로</a>
+			</div>
+			<div class="user_list_box_s">
+				<ul class="user_list_box_ul">
+					<li>
+						<button class="user ui-btn">
+							<ul>
+								<li>
+									<div class="meal_pic_div meal_pic_size" style="background-image:url('../../images/app/noprofile@2x.png')"></div>
+								</li>
+								<li>
+									<div class="txt">
+										<p class="n">삼사오</p>
+										<p class="s"><span>중성</span> 1990. 01. 23</p>
+										<p class="t">현재상태: <em class="bullet_type b_solid g_2">데이터 끊김</em></p>
+									</div>
+								</li>
+								<li>
+									<a href="#pop_chart" data-transition="pop" data-rel="popup" data-position-to="window">
+										<div class="thum_graph">썸네일그래프</div>
+									</a>
+								</li>
+							</ul>
+						</button>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	
+</div>
+<!-- //팔로우 -->
+
+
+<!-- 검색 -->
+<div data-role="page" id="follow_search" class="">
+
+<!-- 팝업 chart -->
+	<div id="pop_chart_search" data-role="popup" data-overlay-theme="b" class="popup_overflow">
+		<div data-role="header">
+			<h1></h1>
+			<a href="../" data-rel="back" class="ui-btn ui-btn-icon-notext ui-icon-close ui-nodisc-icon ui-btn-right">닫기</a>
+			
+			<div>
+				<div class="swiper-container swiper33">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<ul class="popup_value">
+								<li>최고 혈당 수치</li>
+								<li style="padding-right:0;"></li>
+								<li></li>
+							</ul>
+							<div class="popup_chart_area">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //팝업 chart -->
+
+	<div data-role="header" data-position="fixed" class="">
+		<div class="top_search_box search_view"><input type="search" id="followReSearch" placeholder="대상자 검색"></div>
+		<a href="#" data-rel="back" data-icon="back" class="ui-btn ui-btn-icon-notext ui-nodisc-icon ui-icon-black_back ui-btn-left sec">뒤로</a>
+	</div>
+
+	<div role="main">
+		
+		<ul class="user_list_box_ul">
+			<li data-role="list-divider" class="user_sch_value ui-li-divider">검색결과 1건</li>
+			<li>
+				<button class="user ui-btn"><!-- 링크 user_detail.html 이동 -->
+					<ul>
+						<li>
+							<div class="meal_pic_div meal_pic_size" style="background-image:url('../../images/app/noprofile@2x.png')"></div>
+						</li>
+						<li>
+							<div class="txt">
+								<p class="n">일육오</p>
+								<p class="s"><span>여성</span> 1990. 01. 23</p>
+								<p class="t">현재상태: <em class="bullet_type b_solid g_1">긴급저혈당</em></p>
+							</div>
+						</li>
+						<li>
+							<a href="#pop_chart" data-transition="pop" data-rel="popup" data-position-to="window">
+								<div class="thum_graph">썸네일그래프</div>
+							</a>
+						</li>
+					</ul>
+				</button>
+			</li>
+		</ul>
+		
+	</div>
+
+	
+</div>
+<!-- //팔로우 -->
+
+ 
+</body>
+</html>

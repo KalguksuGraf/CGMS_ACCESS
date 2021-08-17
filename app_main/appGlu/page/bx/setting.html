@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Page Title</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="../../css/jquery/jquery.mobile-1.4.5.min.css" />	
+	<link rel="stylesheet" href="../../css/app/common.css" /><!--common-->
+	<link rel="stylesheet" href="../../../css/app/style.css" /><!--서브화면-->
+	
+	<script type="text/javascript" charset="utf-8" src="../../js/jquery/jquery.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/jquery/jquery.mobile-1.4.5.js"></script>
+	
+    <script type="text/javascript" charset="utf-8" src="../../js/common/common.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../js/common/date.js"></script>
+</head>
+<body>
+<!--설정-->
+
+<div data-role="page" id="mybox_setting">
+	<div data-role="popup" id="logoutConfirmPopup" data-overlay-theme="b" class="alert01" style="min-width:280px;max-width:400px;">    
+		<div role="main">	
+			<h3 class="confirmMsg">로그아웃 하시겠습니까?</h3>
+			<ul class="btn_box01">
+				<li><a class="ui-btn ui-btn-inline fnred" href="#" data-rel="back">아니오</a></li>
+				<li><a class="ui-btn ui-btn-inline" href="#" onclick="logout();" data-transition="fade">예</a></li>
+			</ul>
+		</div>	
+	</div>
+
+
+	<div data-role="header" data-position="fixed" class="bg_white hdleft ui-header ui-bar-inherit ui-header-fixed slidedown">
+		<h1 class="ui-title">설정</h1>
+		<a class="ui-btn-left ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-back ui-btn-icon-notext ui-icon-black_back" onclick="backClick();" rel="external">이전</a>
+	</div><!-- /header -->
+	<div data-role="main">
+		<ul data-role="listview" class="list_cm3">
+			<li data-role="list-divider" class="health_list_div ui-li-divider">
+				<div>계정설정</div>
+			</li>
+			<li>
+				<p class="fnt_sm02">아이디</p>
+				<h1 id="setLoginInfo"></h1>
+			</li>
+			<li id="setPwChgChk">
+				<a href="#mybox_password_edit" rel="external">
+					<h1>비밀번호 변경</h1>
+				</a>
+			</li>
+			<li onClick="btnLogoutConfirm();" rel="external">
+				<a href="#">
+					<h1>로그아웃</h1>
+				</a>
+			</li>
+			<li class="setSelfMeasr">
+			    <a href="#">
+					<h1>걸음수 측정</h1>
+					<p id="selfMeasrSttus" class="list_aside fnt_sm">꺼짐</p>
+				</a>
+			</li>
+			<li data-role="list-divider" class="health_list_div ui-li-divider">
+				<div>앱정보</div>
+			</li>
+			<li>
+				<h1 id="setAppInfo">정보없음</h1>
+			</li>
+			<li data-role="list-divider" class="health_list_div ui-li-divider">
+				<div>푸시</div>
+			</li>
+			<li>
+				<div>
+					<label for="pushSetSelect" class="list_label01">알림</label>
+					<div class="setup_rdo slider_list">
+						<select id="pushSetSelect" name="push" data-role="slider" onchange="updatePushSetYn(this);">
+							<option id="push_off" value="off">Off</option>
+							<option id="push_on" value="on">On</option>
+						</select>
+					</div>
+				</div>
+			</li>
+<!-- 			<li data-role="list-divider" class="health_list_div ui-li-divider"> -->
+<!-- 				<div>나의 기기</div> -->
+<!-- 			</li> -->
+<!-- 			<li> -->
+<!-- 				<a href="javascript:callRegDevice();" rel="external"> -->
+<!-- 					<h1>기기연동</h1> -->
+<!-- 				</a> -->
+<!-- 			</li> -->
+			<li data-role="list-divider" class="health_list_div ui-li-divider">
+				<div>이용안내</div>
+			</li>
+			<li>
+				<a href="../us/login.html#terms1" rel="external">
+					<h1>이용약관</h1>
+				</a>
+			</li>
+			<li>
+				<a href="../us/login.html#terms2" rel="external">
+					<h1>개인정보처리방침</h1>
+				</a>
+			</li>
+			<!-- 
+			<li data-role="list-divider" class="health_list_div ui-li-divider">
+				<div>버전</div>
+			</li>
+			<li>
+				<a href="#mybox_version">
+					<h1>버전정보 1.1.1<span class="notice_num3">1</span></h1>
+				</a>
+			</li>
+			 -->
+		</ul>
+	</div><!-- /content -->
+	<!-- footer -->
+    <div data-role="footer" data-position="fixed">
+		<div data-role="navbar">
+			<ul class="footer">
+				<li><a href="../mn/dashboard.html" data-icon="custom" class="ui-nodisc-icon" rel="external">대시보드</a></li>
+				<li><a href="../tl/timeline.html" data-icon="custom" class="ui-nodisc-icon" rel="external">타임라인</a></li>
+				<li><a href="../hr/register.html" data-icon="custom" class="ui-nodisc-icon ui-btn-icon-notext ui-icon-device" rel="external">등록</a></li>
+				<li><a href="../rt/report.html" data-icon="custom" class="ui-nodisc-icon" rel="external">리포트</a></li>
+				<li><a href="../bx/myBoxMain.html" data-icon="custom" class="ui-nodisc-icon footer_on" rel="external">마이페이지</a></li>
+			</ul>
+		</div>
+	</div>
+    <!-- //footer -->
+</div><!-- /page -->
+<!--//설정-->
+
+<!--비밀번호변경-->
+<div data-role="page" id="mybox_password_edit">
+	<div data-role="header" data-position="fixed" class="bg_white bdbt hdleft ui-header ui-bar-inherit ui-header-fixed slidedown">
+		<h1 class="ui-title">비밀번호 변경</h1>
+		<a data-rel="back" class="ui-btn-left ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-back ui-btn-icon-notext ui-icon-black_back">이전</a>
+		<ul class="header_box_btn">
+			<li>
+				<a href="#healthlist_meal_edit2_1" class="btn_txt" onclick="pwSaveConfirm();">저장</a>
+			</li>
+		</ul>
+	</div><!-- /header -->
+	<div data-role="main">
+		<ul data-role="listview" class="health_edit t01 ui-listview">
+			<li class="ui-field-contain">
+				<label for="prePwTxt">현재 비밀번호</label>
+				<input type="password" id="prePwTxt" placeholder="입력해주세요" />
+			</li>
+			<li class="ui-field-contain">
+				<label for="newPwTxt">새 비밀번호</label>
+				<input type="password" id="newPwTxt" placeholder="입력해주세요" />
+			</li>
+			<li class="ui-field-contain">
+				<label for="newPwTxtConfirm">새 비밀번호 확인</label>
+				<input type="password" id="newPwTxtConfirm" placeholder="입력해주세요" />
+			</li>
+		</ul>
+	</div><!-- /content -->
+ </div>	
+ 
+	
+</div><!-- /page -->
+<!--//비밀번호변경-->
+
+<!--걸음수측정해제-->
+<div data-role="page" id="setSelfMeasrPage">
+	<div data-role="header" data-position="fixed" class="bg_white bdbt hdleft">
+		<h1 class="ui-title">걸음수 측정</h1>
+		<a class="ui-btn-left ui-btn ui-btn-a ui-icon-back ui-btn-icon-notext" href="#" onclick="backClick();">이전</a>
+	</div><!-- /header -->
+	<div data-role="main">
+		<ul data-role="listview" class="health_list view ui-listview">
+			<li class="health_list_cm t01 ui-li-static ui-body-inherit">
+				<h1 id="useSttus">걸음수 측정 사용중</h1>
+<!-- 				<p class="fnt_sm02" id="updDt">오전 11:02 업데이트됨</p> -->
+<!--				<p class="fnt_sm02">업데이트 정보 없음</p>-->
+			</li>
+		</ul>
+		<div class="btn_list_box" id="setSelfMeasrBtn"><a href="#" class="ui-btn btn_list_delete">걸음수 측정 해제</a></div>
+	</div><!-- /content -->
+	<!--//footer-->
+		
+</div><!-- /page -->
+<!--//걸음수측정해제-->
+
+<!--버전
+<div data-role="page" id="mybox_version">
+	<div data-role="header" data-position="fixed" class="bg_white bdbt hdleft ui-header ui-bar-inherit ui-header-fixed slidedown">
+		<h1 class="ui-title">버전정보</h1>
+		<a class="ui-btn-left ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-back ui-btn-icon-notext" href="#" onclick="backClick();">이전</a>
+	</div>
+	<div data-role="main">
+		<ul data-role="listview" class="health_list view ui-listview view">
+			<li class="health_list_cm t01 ui-li-static ui-body-inherit">
+				<p class="fnt_sm02">버전</p>
+				<h1 id="appVersion">1.1.1</h1>
+				<p class="fnt_sm02">최신버전이 아닙니다.</p>
+			</li>
+		</ul>
+		<div class="btn_list_box"><a href="#" class="ui-btn btn_list_delete">지금 설치</a></div>
+	</div>
+	
+</div>
+-->
+<!--//버전-->
+
+</body>
+
+<script type="text/javascript" charset="utf-8" src="../../js/common/jappinf.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/app/cm/deviceutil.js" defer="defer"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/app/bx/setting.js" defer="defer"></script>
+
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" charset="utf-8">
+    <script src="../../js/chart/d3.min.js"></script>
+<script src="../../js/jquery/jquery-3.3.1.min.js"></script>
+<script src="../../js/chart/html2canvas.js"></script>
+<script src="../../js/chart/custom/areaChart.js" charset="utf-8"></script>
+    <style>
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: auto;
+  position: relative;
+}
+
+text {
+  font: 10px sans-serif;
+}
+
+.axis path {
+  display: none;
+}
+
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.group-label {
+  font-weight: bold;
+  text-anchor: end;
+}
+
+form {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+#area_chart{
+    height : 150px;
+}
+
+</style>
+</head>
+<body>
+<input type="button" value="insert new Value1" id="newBtn1" onClick="javascript:setValue(1)">
+<input type="button" value="insert new Value2" id="newBtn2" onClick="javascript:setValue(2)">
+<div id="area_chart"></div>
+<p>Html to Image</p>
+<form name="mainForm5">
+<input type="button" id="toImage" value="submit"/>
+</form>
+<div id="imageArea"></div>
+
+<script>
+var rawData1 = [   {"measrTm":"201804010000","value": 50, "duration": 60}
+                  ,{"measrTm":"201804010210","value": 50, "duration": 10}
+                  ,{"measrTm":"201804010330","value": 50, "duration": 10}
+                  ,{"measrTm":"201804010440","value": 50, "duration": 10}
+                  ,{"measrTm":"201804010550","value": 78, "duration": 10}
+                  ,{"measrTm":"201804010610","value": 78, "duration": 10}
+                  ,{"measrTm":"201804010707","value": 78, "duration": 10}
+                  ,{"measrTm":"201804010808","value": 78, "duration": 5}
+                  ,{"measrTm":"201804010909","value": 78, "duration": 60}
+                  ,{"measrTm":"201804011010","value": 78, "duration": 5}
+                  ,{"measrTm":"201804011111","value": 78, "duration": 5}
+                  ,{"measrTm":"201804012359","value": 78, "duration": 1}
+                 ];
+
+var rawData2 = [   {"measrTm":"201804010000","value": 150, "duration": 60}
+                  ,{"measrTm":"201804010210","value": 150, "duration": 10}
+                  ,{"measrTm":"201804010330","value": 150, "duration": 10}
+                  ,{"measrTm":"201804010440","value": 150, "duration": 20}
+                  ,{"measrTm":"201804010550","value": 150, "duration": 10}
+                  ,{"measrTm":"201804010610","value": 150, "duration": 10}
+                  ,{"measrTm":"201804010707","value": 150, "duration": 50}
+                  ,{"measrTm":"201804011808","value": 150, "duration": 5}
+                  ,{"measrTm":"201804011909","value": 150, "duration": 10}
+                  ,{"measrTm":"201804012010","value": 150, "duration": 5}
+                  ,{"measrTm":"201804012111","value": 150, "duration": 5}
+                  ,{"measrTm":"201804012359","value": 150, "duration": 1}
+                 ];
+
+var range = [ {"group":1,"start":70,  "end": 110,  "range": "중강도"}
+             ,{"group":2,"start":110, "end": 200,  "range": "고강도"}];
+
+var areaChart = new AreaChart({"div":"#area_chart"
+                                ,"range":range
+                                ,"colors":["#eee","#ffd21f", "#ff9e56", "#ADD6FB", "#3399FF"]
+                                });
+
+function setValue(gubun){
+    if(gubun==1){
+        areaChart.insertData(rawData1);
+    }else{
+        areaChart.insertData(rawData2);
+    }
+}
+
+
+$('#toImage').click(function(){
+	html2canvas(document.querySelector("#area_chart"),{windowHeight:$("#area_chart").prop('scrollHeight')}).then(function(canvas) {
+		var imageData = canvas.toDataURL("image/png");
+		$("#imageArea").empty();
+		$("#imageArea").append('<image src="'+imageData+'"/>'); 
+		alert(imageData);		
+		
+	});
+
+
+});
+
+
+</script>
+</body>
+</html>

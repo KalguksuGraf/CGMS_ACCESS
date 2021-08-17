@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Page Title</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover, shrink-to-fit=no">
+	<link rel="stylesheet" href="../../css/jquery/jquery.mobile-1.4.5.min.css" />
+	<link rel="stylesheet" href="../../css/app/common.css" />
+	<link rel="stylesheet" href="../../css/app/style.css"/>
+	<script type="text/javascript" charset="utf-8" src="../../js/jquery/jquery.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/jquery/jquery.mobile-1.4.5.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/common/jappinf.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/common/common.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/common/date.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/chart/d3.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/chart/custom/cgmChart.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/chart/custom/cgmDtlsChart.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/chart/custom/cgmPopChart.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/app/tl/timeline.js" defer="defer"></script>
+
+	<!-- 스와이프 -->
+	<link rel="stylesheet" href="../../css/app/swiper.min.css" />
+	<script type="text/javascript" charset="utf-8" src="../../js/jquery/swiper.jquery.min.js"></script>
+	<script>
+// 	$(document).ready(function(){
+// 		var swiper1 = new Swiper('.swiper1', {
+// 		 width : screen.width,
+// 		 slidesPerView: 1,
+// 		 spaceBetween: 0,
+// 		 navigation: {
+// 			  nextEl: '.swiper-button-next.next1',
+// 			  prevEl: '.swiper-button-prev.prev1'
+// 			}
+// 		});
+// 	});
+	</script>
+	<!-- /스와이프 -->
+
+</head>
+<body>
+
+
+<div data-role="page" id="deshboard" style="overflow-y:hidden;">
+
+	<!-- 등록 -->
+	<div data-role="panel" id="sync1" class="sync1" data-position="bottom" data-display="overlay">
+
+	    <div class="sync_close"><a href="#"  data-rel="close">닫기</a></div>
+	</div>
+	<!-- 등록 -->
+
+	<!-- 팝업 chart -->
+	<div id="pop_chart" data-role="popup" data-overlay-theme="b" class="popup_overflow">
+		<div data-role="header">
+			<h1></h1>
+			<a href="../" data-rel="back" class="ui-btn ui-btn-icon-notext ui-icon-close ui-nodisc-icon ui-btn-right">닫기</a>
+			
+			<div>
+				<div class="swiper-container swiper33">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<ul class="popup_value">
+								<li>최고 혈당 수치</li>
+								<li style="padding-right:0;"></li>
+								<li></li>
+							</ul>
+							<div class="popup_chart_area">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //팝업 chart -->
+
+	<!-- content -->
+	<div data-role="main">
+		<div class="">
+			<div class="timeline_box t01">
+				<div class="timeline_date">
+					<div class="date" id="dateTitle"></div>
+					<div class="swiper_button_date">
+						<div class="swiper-button-next next1" tabindex="0" role="button" aria-label="Next slide" aria-disabled="true"></div>
+						<div class="swiper-button-prev prev1" tabindex="0" role="button" aria-label="Previous slide" aria-disabled="true"></div>
+					</div>
+				</div>
+				<!--swiper-container-->
+				<div class="swiper-container swiper1"> 
+					<div class="swiper-wrapper">
+						<!--slide1-->
+						<div class="swiper-slide">
+							<div class="view_chart_box">
+<!-- 								<a href="#pop_chart" data-transition="pop" data-rel="popup" data-position-to="window">팝업</a> -->
+								<div class="chart_div" id="timelineChart" style="height:30vh;">
+								</div>
+							</div>
+							<div class="content_view_box" style="overflow:visible;overflow-x:hidden;height:58vh !important;padding-bottom:58px;">
+<!-- 								<h2>일별 상세 정보</h2> -->
+								<ul data-role="listview" class="timeline_detail" id="timelineList">
+								</ul>
+							</div>
+						</div>
+						<!--//slide1-->
+					</div>
+				</div>
+				<!--//swiper-container-->
+			</div>
+		</div>
+    </div>
+    <!-- /content -->
+
+	<!-- footer -->
+	<div data-role="footer" data-position="fixed">
+		<div data-role="navbar">
+			<ul class="footer">
+				<li><a href="../mn/dashboard.html" data-icon="custom" class="ui-nodisc-icon" rel="external">대시보드</a></li>
+				<li><a href="../tl/timeline.html" data-icon="custom" class="ui-nodisc-icon footer_on" rel="external">타임라인</a></li>
+				<li><a href="../hr/register.html" data-icon="custom" class="ui-nodisc-icon ui-btn-icon-notext ui-icon-device" rel="external">등록</a></li>
+				<li><a href="../rt/report.html" data-icon="custom" class="ui-nodisc-icon" rel="external">리포트</a></li>
+				<li><a href="../bx/myBoxMain.html" data-icon="custom" class="ui-nodisc-icon" rel="external">마이페이지</a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- /footer -->
+	
+</div>
+
+</body>
+</html>

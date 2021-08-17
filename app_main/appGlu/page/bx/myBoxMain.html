@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>myBox</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="../../css/jquery/jquery.mobile-1.4.5.min.css" />	
+	<link rel="stylesheet" href="../../css/app/common.css" /><!--공통-->
+	<link rel="stylesheet" href="../../../css/app/style.css" /><!--서브화면-->
+	
+	<script type="text/javascript" charset="utf-8" src="../../js/jquery/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../js/jquery/jquery.mobile-1.4.5.js"></script>
+
+	<script type="text/javascript" charset="utf-8" src="../../js/common/jappinf.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../js/common/common.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../js/common/date.js"></script>
+
+</head>
+<body>
+
+<!--mybox-->
+<div data-role="page" id="main">
+	<div data-role="main">
+		<div class="mypage_visual">
+			<ul>
+				<li>
+					<a class="ui-btn ui-btn-icon-top ui-btn-setting" href="./setting.html" rel="external">
+						설정
+					</a>
+				</li>
+			</ul>
+		</div>
+		<ul data-role="listview" class="list_cm_setting ui-listview mypage_wrap">
+			 <li>
+				<a href="./myInfo.html" class="mypage" rel="external" style="border-bottom-width:0;">
+					<div class="list_profile">
+						<span class="profile_pic profile60 noprofile" id="mainProfilePic"></span>
+<!-- 						<p class="mybox_code">회원코드구분</p> -->
+						<h1 id="myBoxUserNm"></h1>
+						<p  class="fnwhite" id="myBoxPassDt"></p>
+					</div>
+				</a>
+			</li>
+		</ul>
+		<ul data-role="listview" class="list_cm3 ui-listview myBoxMainList">            
+			<li class="list_icon list_icon_deviceset">
+				<a href="../st/deviceSetting.html" rel="external">
+					<h1 id="deviceSetMenu">기기연동</h1>
+				</a>
+			</li>
+			<li class="list_icon list_icon_setting">
+				<a href="../../page/bx/setting.html" rel="external">
+					<h1>설정</h1> 
+				</a>
+			</li>
+			<li class="list_icon list_icon_mission">
+				<a href="../../page/bx/svcReq.html" rel="external">
+					<h1>서비스 코드 등록</h1>
+				</a>
+			</li>
+		</ul>
+	</div><!-- /content -->
+    <!-- footer -->
+    <div data-role="footer" data-position="fixed">
+		<div data-role="navbar">
+			<ul class="footer">
+				<li><a href="../mn/dashboard.html" data-icon="custom" class="ui-nodisc-icon" rel="external">대시보드</a></li>
+				<li><a href="../tl/timeline.html" data-icon="custom" class="ui-nodisc-icon" rel="external">타임라인</a></li>
+				<li><a href="../hr/register.html" data-icon="custom" class="ui-nodisc-icon ui-btn-icon-notext ui-icon-device" rel="external">등록</a></li>
+				<li><a href="../rt/report.html" data-icon="custom" class="ui-nodisc-icon" rel="external">리포트</a></li>
+				<li><a href="../bx/myBoxMain.html" data-icon="custom" class="ui-nodisc-icon footer_on" rel="external">마이페이지</a></li>
+			</ul>
+		</div>
+	</div>
+    <!-- //footer -->
+</div><!-- /page -->
+<!--//mybox-->
+
+
+<!--서비스 안내-->
+<div data-role="page" id="mybox_service">
+
+	<!-- 로그아웃여부 -->
+	<div data-role="popup" id="logout_pop" data-overlay-theme="b"  class="alert01" style="max-width:400px;">
+		<div data-role="main">
+			<h3>로그아웃 하시겠습니까?</h3>
+			<ul class="btn_box01">
+				<li><a class="ui-btn ui-btn-inline fnred" href="#" data-rel="back">아니오</a></li>
+				<li><a class="ui-btn ui-btn-inline" href="page/device.html" data-transition="fade" rel="external">예</a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- 로그아웃여부 -->
+
+	<div data-role="header" data-position="fixed" class="bg_white hdleft ui-header ui-bar-inherit ui-header-fixed slidedown">
+		<h1 class="ui-title">서비스 안내</h1>
+		<a class="ui-btn-left ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-back ui-btn-icon-notext" href="#" data-rel="back">이전</a>
+	</div><!-- /header -->
+	<div data-role="main">
+		<ul data-role="listview" class="list_cm3">
+			<li class="list_icon list_icon_faq">
+				<a href="../../app/bx/noticeFaq.html">
+					<h1>자주 묻는 질문</h1>
+				</a>
+			</li>
+			<li class="list_icon list_icon_help">
+				<a href="../../app/bx/guide.html#main">
+					<h1>헬스앤유 가이드</h1>
+				</a>
+			</li>
+		</ul>
+	</div><!-- /content -->
+</div><!-- /page -->
+<!--//서비스 안내-->
+
+</body>
+
+<script type="text/javascript" charset="utf-8" src="../../js/app/bx/myBoxMain.js" defer="defer"></script>
+
+</html>

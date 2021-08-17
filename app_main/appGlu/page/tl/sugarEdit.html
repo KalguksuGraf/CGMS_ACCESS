@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Page Title</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="../../css/jquery/jquery.mobile-1.4.5.min.css" />
+	<link rel="stylesheet" href="../../css/app/common.css" />
+	<link rel="stylesheet" href="../../css/app/style.css"/>
+	<script type="text/javascript" charset="utf-8" src="../../js/jquery/jquery.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/jquery/jquery.mobile-1.4.5.js"></script>
+
+	<script type="text/javascript" charset="utf-8" src="../../js/common/common.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/app/tl/sugarEdit.js" defer="defer"></script>
+</head>
+<body>
+<!-- edit -->
+<div data-role="page" id="sugar_edit" class="bg_color_white">
+	<!-- 시간 등록 -->
+	<div data-role="panel" id="input_timeMedi" style="height: 66%;" class="panel_register" data-position="bottom" data-display="overlay">
+		<input type="hidden" class="setItem" />
+		<div class="">
+			<div data-role="header">
+				<a href="#" id="timeCloce" data-rel="close" class="ui-btn ui-btn-icon-notext ui-icon-pop_close ui-nodisc-icon ui-btn-left">닫기</a>
+			</div>
+			<div class="cont-inner no-drag" id="" >
+				<input type="text" name="timepicker" class="" id="" readonly="readonly" placeholder="시간을 선택해 주세요." style="text-align: center;"/>
+				<input type="text" name="timepicker" class="time_element" id="timpPick" readonly="readonly" placeholder="시간을 선택해 주세요." style="text-align: center;display: none;"/>
+				<div>
+					<div class="" style="width:48%;float:left;">
+						<a href="#" class="reg blue ui-btn delBtn" style="background:#FF5E7F;" data-rel="popup" id="resetTimer" data-position-to="window" data-transition="pop">현재시각으로 리셋</a>
+					</div>
+					<div class="" style="width:48%;float:right;">
+						<a href="#" class="reg blue ui-btn regBtn" data-rel="popup" id="timeSaveBtn" data-position-to="window" data-transition="pop">선택완료</a>
+					</div>					
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //시간 등록 -->
+	<div data-role="header" data-position="fixed" class="line">
+		<h1>혈당</h1>
+		<a href="#" data-rel="back" class="ui-btn ui-nodisc-icon ui-btn-left txt" rel="external">취소</a>
+		<a href="#" class="ui-btn ui-nodisc-icon ui-btn-right txt" rel="external" id="saveBtn">저장</a>
+	</div>
+
+	<div role="main" class="ui-content">
+		<ul data-role="listview" class="input_warp">
+			<li class="w01 ui-field-contain">
+				<label for="measrDe" class="required_check">날짜</label>
+				<div><input type="date" id="measrDe" placeholder="" min="2020-01-01" max="9999-12-31"  /></div>
+			</li>
+			<li class="w01 ui-field-contain">
+				<label for="measrTm" class="required_check">시간</label>
+				<div><input type="time" id="measrTm" placeholder=""/></div>
+			</li>
+			<li class="w01 ui-field-contain">
+				<label for="bloodSugar" class="required_check">혈당 (mg/dL)</label>
+				<input type="number" id="bloodSugar" placeholder="" maxlength="3" oninput="maxLengthCheck(this)" />
+			</li>
+			<li class="w02 ui-field-contain end">
+				<label for="rmk" class="required_check">메모</label>
+				<div class="h120">
+					<textarea id="rmk"></textarea>
+				</div>
+			</li>
+		</ul>
+	</div>
+	
+</div>
+<!-- //edit -->
+
+<!-- 스크립트 import -->
+<script type="text/javascript" charset="utf-8" src="../../js/common/date.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/jquery/timepicki.js"></script>
+</body>
+</html>

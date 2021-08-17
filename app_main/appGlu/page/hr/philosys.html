@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Page Title</title>
+	<meta http-equiv="Content-Security-Policy">
+	<meta charset="utf-8">
+	<meta name="format-detection" content="telephone=no, address=no, email=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../../css/jquery/jquery.mobile-1.4.5.min.css" />
+	<link rel="stylesheet" href="../../css/app/philosys/common.css" />
+	<link rel="stylesheet" href="../../css/app/philosys/style.css"/>
+	<script type="text/javascript" charset="utf-8" src="../../js/jquery/jquery.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../../js/jquery/jquery.mobile-1.4.5.js"></script>
+	<script>
+        $(document).on('mobileinit', function() {
+                    $.mobile.changePage.defaults.changeHash = true;
+                    $.mobile.linkBindinEnabled = true;
+                    $.mobile.hashListeningEnabled = true;
+                    $.mobile.pushStateEnabled = false;
+                    $.mobile.ajaxLinksEnabled = false;
+                    $.mobile.ajaxEnabled = false;
+        });
+    </script>
+
+</head>
+<body>
+
+
+<!-- test_start 01 -->
+<div data-role="page" id="start01" class="bg_color_white">
+
+	<div role="main" class="start_wrap bg">
+		<div class="start_top_header">
+			<div class="header_wrap">
+				<h1>&nbsp;</h1>
+<!-- 				<a href="" data-rel="back" data-ajax="false" data-icon="back" class="ui-btn ui-btn-icon-notext ui-nodisc-icon ui-icon-black_back ui-btn-left">뒤로</a> -->
+<!-- 				<a href="#start02" class="btn_txt_next ui-btn-right" data-transition="fade">당대조용액</a> -->
+			</div>
+		</div>
+		<div class="start_txt_box">
+			<h2>전극 부분을 측정기의 검사지 </br>삽입구에 넣으십시오.</h2>
+			<p>검사지가 더 이상 들어가 않을 때까지 밀어 넣습니다.</p>
+		</div>
+		<div class="start_deivce_box t20"></div>
+		<div class="start_stick_box t04 move"></div>
+		<div class="start_circle_bg t20"></div>
+	</div>
+
+</div>
+<!-- //test_start 01 -->
+
+<!-- test_start 02 -->
+<div data-role="page" id="start02" class="bg_color_white">
+
+	<!-- 측정중 및 결과 -->
+	<div id="measure" data-role="popup" data-overlay-theme="b" class="measure_pop_overflow nobg">
+		<div class="cm_loader_wrap">
+			<!-- 측정중 -->
+			<div class="cm_loader"><div class="loader">로딩</div></div>
+			<!-- //측정중-->
+			<!-- 결과 -->
+			<div class="text_cent measure_val_div" style="display: none;">
+				<p>측정결과</p>
+				<p class="measure_val">0</p>
+				<p>mmHg</p>
+			</div>
+			<!-- //결과-->
+		</div>
+	</div>
+	<!-- //측정중 및 결과-->
+	
+	<div role="main" class="start_wrap bg01">
+		<div class="start_top_header">
+			<div class="header_wrap">
+				<h1>&nbsp;</h1>
+<!-- 				<a href="" data-rel="back" data-ajax="false" data-icon="back" class="ui-btn ui-btn-icon-notext ui-nodisc-icon ui-icon-black_back ui-btn-left">뒤로</a> -->
+<!-- 				<a href="#start03" class="btn_txt_next ui-btn-right" data-transition="flip">혈액</a> -->
+			</div>
+		</div>
+		<div class="start_txt_box">
+			<h2>검사지 끝에 채혈한 </br>혈액 방울을 갖다 대세요</h2>
+			<p>혈액이 검사지 안으로 자동적으로 </br>빨려 들어갈 것입니다.</p>
+		</div>
+		<div class="start_deivce_box t34"></div>
+		<div class="start_stick_box t29"><span class="move"></span></div>
+		<div class="start_circle_bg t32"></div>
+		<div class="start_hand_box move"><span></span></div>
+	</div>
+
+</div>
+<!-- //test_start 02 -->
+
+<!-- test_start 03 -->
+<div data-role="page" id="start03" class="bg_color_white">
+
+	<div role="main" class="start_wrap bg01">
+		<div class="start_top_header">
+			<div class="header_wrap">
+				<h1>&nbsp;</h1>
+<!-- 				<a href="" data-rel="back" data-ajax="false" data-icon="back" class="ui-btn ui-btn-icon-notext ui-nodisc-icon ui-icon-black_back ui-btn-left">뒤로</a> -->
+<!-- 				<a href="#measure" class="btn_txt_next ui-btn-right" data-transition="fade" data-rel="popup" data-position-to="window" data-transition="pop">혈액</a> -->
+			</div>
+		</div>
+		<div class="start_txt_box">
+			<h2>검사지 끝에 점검용액 </br>방울을 갖다 대세요</h2>
+			<p>점검용액이 검사지 안으로 자동적으로 </br>빨려 들어갈 것입니다.</p>
+		</div>
+		<div class="start_deivce_box t34"></div>
+		<div class="start_stick_box t29"></div>
+		<div class="start_circle_bg t32"></div>
+		<div class="start_reagent_box"><span></span></div>
+	</div>
+
+</div>
+<!-- //test_start 03 -->
+
+<!-- 스크립트 import -->
+<script type="text/javascript" charset="utf-8" src="../../js/common/common.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/common/jappinf.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/app/hr/philosys.js"></script>
+
+</body>
+</html>
